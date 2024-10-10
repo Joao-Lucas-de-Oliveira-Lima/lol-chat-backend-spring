@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.Objects;
 @Entity
 @Table(name = "champions")
-public class ChampionModel {
+public final class ChampionModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -78,11 +78,11 @@ public class ChampionModel {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
         ChampionModel that = (ChampionModel) object;
-        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(title, that.title) && Objects.equals(lore, that.lore) && Objects.equals(imageUrl, that.imageUrl);
+        return Objects.equals(name, that.name) && Objects.equals(title, that.title) && Objects.equals(lore, that.lore) && Objects.equals(imageUrl, that.imageUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, title, lore, imageUrl);
+        return Objects.hash(name, title, lore, imageUrl);
     }
 }
