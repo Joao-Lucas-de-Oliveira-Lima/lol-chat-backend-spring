@@ -25,7 +25,7 @@ public class ChampionController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ChampionResponseDTO>> findAll() {
+    public ResponseEntity<List<ChampionResponseDTO>> findAll() throws Exception {
         List<ChampionResponseDTO> result =
                 listChampionsIteractor
                         .listChampions()
@@ -36,5 +36,4 @@ public class ChampionController {
                 .status(HttpStatus.OK)
                 .body(result);
     }
-
 }

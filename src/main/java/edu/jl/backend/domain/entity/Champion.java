@@ -2,7 +2,7 @@ package edu.jl.backend.domain.entity;
 
 import java.util.Objects;
 
-public class Champion {
+public final class Champion {
     private Long id;
     private String name;
     private String title;
@@ -11,13 +11,6 @@ public class Champion {
 
     public Champion(Long id, String name, String title, String lore, String imageUrl) {
         this.id = id;
-        this.name = name;
-        this.title = title;
-        this.lore = lore;
-        this.imageUrl = imageUrl;
-    }
-
-    public Champion(String name, String title, String lore, String imageUrl) {
         this.name = name;
         this.title = title;
         this.lore = lore;

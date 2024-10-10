@@ -5,5 +5,5 @@ import edu.jl.backend.domain.entity.Champion;
 import java.util.List;
 
 public interface ChampionGateway {
-    List<Champion> listChampions();
+    List<Champion> listChampions() throws Exception;
 }

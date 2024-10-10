@@ -12,7 +12,7 @@ public class ListChampionsIteractor {
         this.championGateway = championGateway;
     }
 
-    public List<Champion> listChampions(){
+    public List<Champion> listChampions() throws Exception {
         return this.championGateway.listChampions();
     }
 }
