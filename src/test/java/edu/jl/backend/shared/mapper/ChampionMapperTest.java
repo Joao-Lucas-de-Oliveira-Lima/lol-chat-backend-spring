@@ -2,7 +2,7 @@ package edu.jl.backend.shared.mapper;
 
 import edu.jl.backend.domain.entity.Champion;
 import edu.jl.backend.infra.model.ChampionModel;
-import edu.jl.backend.presentation.dto.ChampionResponseDTO;
+import edu.jl.backend.presentation.DTO.ChampionResponseDTO;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ChampionMapperTest {
 
     private static ChampionModel championModel;
-    private static Champion champion;
+    private static Champion championEntity;
     private static ChampionResponseDTO championResponseDTO;
 
     private final ChampionMapper championMapper = new ChampionMapper();
@@ -24,7 +24,7 @@ class ChampionMapperTest {
     @BeforeAll
     static void setupForAllTests() {
 
-        champion = new Champion(
+        championEntity = new Champion(
                 1L,
                 "Aatrox",
                 "the Darkin Blade",
@@ -35,32 +35,41 @@ class ChampionMapperTest {
                 "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg"
         );
         championModel = new ChampionModel(
-                champion.getId(),
-                champion.getName(),
-                champion.getTitle(),
-                champion.getLore(),
-                champion.getImageUrl()
+                championEntity.getId(),
+                championEntity.getName(),
+                championEntity.getTitle(),
+                championEntity.getLore(),
+                championEntity.getImageUrl()
         );
         championResponseDTO = new ChampionResponseDTO(
-                champion.getId(),
-                champion.getName(),
-                champion.getTitle(),
-                champion.getLore(),
-                champion.getImageUrl()
+                championEntity.getId(),
+                championEntity.getName(),
+                championEntity.getTitle(),
+                championEntity.getLore(),
+                championEntity.getImageUrl()
         );
     }
 
     @Test
     @DisplayName("Should map ChampionModel to Champion entity successfully")
-    void shouldMapToEntity() {
-        Champion result = championMapper.mapToEntity(championModel);
-        assertThat(result).isEqualTo(champion);
+    void shouldMapChampionModelToEntity() {
+        Champion mappedChampionEntity  = championMapper.mapToEntity(championModel);
+        assertThat(mappedChampionEntity ).isEqualTo(championEntity);
     }
 
     @Test
     @DisplayName("Should map Champion entity to ChampionResponseDTO successfully")
-    void shouldMapToResponseDTO() {
-        ChampionResponseDTO result = championMapper.mapToResponseDTO(champion);
-        assertThat(result).isEqualTo(championResponseDTO);
+    void shouldMapChampionEntityToResponseDTO() {
+        ChampionResponseDTO mappedChampionResponseDTO =
+                championMapper.mapToResponseDTO(championEntity);
+        assertThat(mappedChampionResponseDTO).isEqualTo(championResponseDTO);
     }
+
+    @Test
+    @DisplayName("Should map ChampionModel to ChampionResponseDTO correctly")
+    void shouldMapChampionModelToResponseDTO() {
+        ChampionResponseDTO mappedChampionResponseDTO = championMapper.mapToResponseDTO(championModel);
+        assertThat(mappedChampionResponseDTO).isEqualTo(championResponseDTO);
+    }
+
 }

@@ -1,4 +1,4 @@
-package edu.jl.backend.presentation.dto;
+package edu.jl.backend.presentation.DTO;
 public record ChampionResponseDTO(
         Long id,
         String name,

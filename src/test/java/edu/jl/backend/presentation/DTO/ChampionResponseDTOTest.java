@@ -1,4 +1,4 @@
-package edu.jl.backend.presentation.dto;
+package edu.jl.backend.presentation.DTO;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.jupiter.api.DisplayName;

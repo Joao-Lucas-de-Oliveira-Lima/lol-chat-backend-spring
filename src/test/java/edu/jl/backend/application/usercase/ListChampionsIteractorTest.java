@@ -4,6 +4,7 @@ import edu.jl.backend.application.gateway.ChampionGateway;
 import edu.jl.backend.domain.entity.Champion;
 import edu.jl.backend.infra.exception.DatabaseOperationException;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -58,7 +59,8 @@ class ListChampionsIteractorTest {
     }
 
     @Test
-    void listChampionsCase01() throws Exception {
+    @DisplayName("Should return a list with all champions from the database successfully")
+    void shouldReturnChampionListSuccessfully() throws Exception {
         when(championGateway.listChampions()).thenReturn(championMockList);
         List<Champion> result = listChampionsIteractor.listChampions();
         assertThat(result).isEqualTo(championMockList);
@@ -66,7 +68,8 @@ class ListChampionsIteractorTest {
     }
 
     @Test
-    void listChampionsCase02() throws Exception {
+    @DisplayName("Should throw DatabaseOperationException when champion list retrieval fails")
+    void shouldThrowDatabaseOperationExceptionOnFailure() throws Exception {
         when(championGateway.listChampions()).thenThrow(DatabaseOperationException.class);
 
         assertThatThrownBy(() -> listChampionsIteractor.listChampions())
