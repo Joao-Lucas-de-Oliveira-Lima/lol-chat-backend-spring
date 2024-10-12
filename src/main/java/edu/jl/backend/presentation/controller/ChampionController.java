@@ -1,7 +1,7 @@
 package edu.jl.backend.presentation.controller;
 
 import edu.jl.backend.application.usercase.ListChampionsIteractor;
-import edu.jl.backend.presentation.dto.ChampionResponseDTO;
+import edu.jl.backend.presentation.DTO.ChampionResponseDTO;
 import edu.jl.backend.shared.mapper.ChampionMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
