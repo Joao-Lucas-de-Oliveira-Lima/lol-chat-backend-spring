@@ -1,8 +1,8 @@
 package edu.jl.backend.application.usercase;
 
 import edu.jl.backend.domain.entity.Champion;
-import edu.jl.backend.infra.exception.DatabaseOperationException;
-import edu.jl.backend.infra.repository.ChampionRepository;
+import edu.jl.backend.infrastructure.exception.DatabaseOperationException;
+import edu.jl.backend.infrastructure.repository.ChampionRepository;
 import edu.jl.backend.shared.mapper.ChampionMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

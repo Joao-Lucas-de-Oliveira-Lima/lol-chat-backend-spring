@@ -2,8 +2,8 @@ package edu.jl.backend.presentation.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.jl.backend.infra.exception.DatabaseOperationException;
-import edu.jl.backend.infra.repository.ChampionRepository;
+import edu.jl.backend.infrastructure.exception.DatabaseOperationException;
+import edu.jl.backend.infrastructure.repository.ChampionRepository;
 import edu.jl.backend.presentation.DTO.ChampionResponseDTO;
 import edu.jl.backend.shared.mapper.ChampionMapper;
 import org.junit.jupiter.api.DisplayName;

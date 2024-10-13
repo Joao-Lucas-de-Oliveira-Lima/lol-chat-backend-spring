@@ -2,8 +2,7 @@ package edu.jl.backend.application.usercase;
 
 import edu.jl.backend.application.gateway.ChampionGateway;
 import edu.jl.backend.domain.entity.Champion;
-import edu.jl.backend.infra.exception.DatabaseOperationException;
-import edu.jl.backend.presentation.DTO.ChampionResponseDTO;
+import edu.jl.backend.infrastructure.exception.DatabaseOperationException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

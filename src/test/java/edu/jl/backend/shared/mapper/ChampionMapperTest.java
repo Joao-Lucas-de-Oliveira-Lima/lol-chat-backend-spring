@@ -1,7 +1,7 @@
 package edu.jl.backend.shared.mapper;
 
 import edu.jl.backend.domain.entity.Champion;
-import edu.jl.backend.infra.model.ChampionModel;
+import edu.jl.backend.infrastructure.model.ChampionModel;
 import edu.jl.backend.presentation.DTO.ChampionResponseDTO;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;

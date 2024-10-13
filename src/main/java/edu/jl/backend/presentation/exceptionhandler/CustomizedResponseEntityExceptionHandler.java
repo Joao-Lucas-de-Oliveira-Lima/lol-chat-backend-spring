@@ -1,7 +1,7 @@
 package edu.jl.backend.presentation.exceptionhandler;
 
 import edu.jl.backend.domain.exception.ChampionNotFoundException;
-import edu.jl.backend.infra.exception.DatabaseOperationException;
+import edu.jl.backend.infrastructure.exception.DatabaseOperationException;
 import edu.jl.backend.presentation.DTO.ExceptionResponseDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

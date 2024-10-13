@@ -1,6 +1,6 @@
-package edu.jl.backend.infra.repository;
+package edu.jl.backend.infrastructure.repository;
 
-import edu.jl.backend.infra.model.ChampionModel;
+import edu.jl.backend.infrastructure.model.ChampionModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
