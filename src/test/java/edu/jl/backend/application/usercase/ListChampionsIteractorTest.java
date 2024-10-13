@@ -3,6 +3,7 @@ package edu.jl.backend.application.usercase;
 import edu.jl.backend.application.gateway.ChampionGateway;
 import edu.jl.backend.domain.entity.Champion;
 import edu.jl.backend.infra.exception.DatabaseOperationException;
+import edu.jl.backend.presentation.DTO.ChampionResponseDTO;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -30,12 +31,13 @@ class ListChampionsIteractorTest {
     @InjectMocks
     private ListChampionsIteractor listChampionsIteractor;
 
-    private static List<Champion> championMockList;
+    private static List<Champion> sampleChampionList;
+
 
     @BeforeAll
     static void setupForAllTests() {
-        championMockList = new ArrayList<>();
-        championMockList.add(new Champion(
+        sampleChampionList = new ArrayList<>();
+        sampleChampionList.add(new Champion(
                 1L,
                 "Aatrox",
                 "the Darkin Blade",
@@ -45,7 +47,7 @@ class ListChampionsIteractorTest {
                         "But after centuries of imprisonment, Aatrox was the first to find...",
                 "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg")
         );
-        championMockList.add(new Champion(
+        sampleChampionList.add(new Champion(
                 2L,
                 "Ahri",
                 "the Nine-Tailed Fox",
@@ -56,14 +58,15 @@ class ListChampionsIteractorTest {
                         "yet wayward...",
                 "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_0.jpg")
         );
+
     }
 
     @Test
     @DisplayName("Should return a list with all champions from the database successfully")
     void shouldReturnChampionListSuccessfully() throws Exception {
-        when(championGateway.listChampions()).thenReturn(championMockList);
+        when(championGateway.listChampions()).thenReturn(sampleChampionList);
         List<Champion> result = listChampionsIteractor.listChampions();
-        assertThat(result).isEqualTo(championMockList);
+        assertThat(result).isEqualTo(sampleChampionList);
         verifyNoMoreInteractions(championGateway);
     }
 
