@@ -2,7 +2,7 @@ package edu.jl.backend.presentation.controller;
 
 import edu.jl.backend.application.usercase.ListChampionsIteractor;
 import edu.jl.backend.domain.entity.Champion;
-import edu.jl.backend.infra.exception.DatabaseOperationException;
+import edu.jl.backend.infrastructure.exception.DatabaseOperationException;
 import edu.jl.backend.presentation.DTO.ChampionResponseDTO;
 import edu.jl.backend.shared.mapper.ChampionMapper;
 import org.junit.jupiter.api.BeforeAll;

@@ -1,10 +1,10 @@
-package edu.jl.backend.infra.gateway;
+package edu.jl.backend.infrastructure.gateway;
 
 import edu.jl.backend.application.gateway.ChampionGateway;
 import edu.jl.backend.domain.entity.Champion;
-import edu.jl.backend.infra.exception.DatabaseOperationException;
-import edu.jl.backend.infra.model.ChampionModel;
-import edu.jl.backend.infra.repository.ChampionRepository;
+import edu.jl.backend.infrastructure.exception.DatabaseOperationException;
+import edu.jl.backend.infrastructure.model.ChampionModel;
+import edu.jl.backend.infrastructure.repository.ChampionRepository;
 import edu.jl.backend.shared.mapper.ChampionMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

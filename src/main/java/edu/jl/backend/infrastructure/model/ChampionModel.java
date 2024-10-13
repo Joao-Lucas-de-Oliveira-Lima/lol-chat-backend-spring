@@ -1,4 +1,4 @@
-package edu.jl.backend.infra.model;
+package edu.jl.backend.infrastructure.model;
 
 import jakarta.persistence.*;
 
