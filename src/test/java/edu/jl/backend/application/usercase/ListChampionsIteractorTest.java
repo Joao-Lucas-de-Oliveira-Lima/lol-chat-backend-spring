@@ -24,7 +24,6 @@ import static org.mockito.Mockito.when;
  */
 @ExtendWith(MockitoExtension.class)
 class ListChampionsIteractorTest {
-
     @Mock
     private ChampionGateway championGateway;
     @InjectMocks
