@@ -2,7 +2,7 @@ package edu.jl.backend.shared.mapper;
 
 import edu.jl.backend.domain.entity.Champion;
 import edu.jl.backend.infrastructure.model.ChampionModel;
-import edu.jl.backend.presentation.DTO.ChampionResponseDTO;
+import edu.jl.backend.presentation.DTO.ChampionDTO;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,7 +17,7 @@ class ChampionMapperTest {
 
     private static ChampionModel championModel;
     private static Champion championEntity;
-    private static ChampionResponseDTO championResponseDTO;
+    private static ChampionDTO championDTO;
 
     private final ChampionMapper championMapper = new ChampionMapper();
 
@@ -41,7 +41,7 @@ class ChampionMapperTest {
                 championEntity.getLore(),
                 championEntity.getImageUrl()
         );
-        championResponseDTO = new ChampionResponseDTO(
+        championDTO = new ChampionDTO(
                 championEntity.getId(),
                 championEntity.getName(),
                 championEntity.getTitle(),
@@ -58,18 +58,18 @@ class ChampionMapperTest {
     }
 
     @Test
-    @DisplayName("Should map Champion entity to ChampionResponseDTO successfully")
+    @DisplayName("Should map Champion entity to ChampionDTO successfully")
     void shouldMapChampionEntityToResponseDTO() {
-        ChampionResponseDTO mappedChampionResponseDTO =
-                championMapper.mapToResponseDTO(championEntity);
-        assertThat(mappedChampionResponseDTO).isEqualTo(championResponseDTO);
+        ChampionDTO mappedChampionDTO =
+                championMapper.mapToDTO(championEntity);
+        assertThat(mappedChampionDTO).isEqualTo(championDTO);
     }
 
     @Test
-    @DisplayName("Should map ChampionModel to ChampionResponseDTO correctly")
+    @DisplayName("Should map ChampionModel to ChampionDTO correctly")
     void shouldMapChampionModelToResponseDTO() {
-        ChampionResponseDTO mappedChampionResponseDTO = championMapper.mapToResponseDTO(championModel);
-        assertThat(mappedChampionResponseDTO).isEqualTo(championResponseDTO);
+        ChampionDTO mappedChampionDTO = championMapper.mapToDTO(championModel);
+        assertThat(mappedChampionDTO).isEqualTo(championDTO);
     }
 
 }

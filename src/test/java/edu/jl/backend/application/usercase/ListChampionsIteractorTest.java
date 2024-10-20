@@ -16,8 +16,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Unit tests for {@link ListChampionsIteractor}
@@ -65,6 +64,7 @@ class ListChampionsIteractorTest {
         when(championGateway.listChampions()).thenReturn(sampleChampionList);
         List<Champion> result = listChampionsIteractor.listChampions();
         assertThat(result).isEqualTo(sampleChampionList);
+        verify(championGateway, times(1)).listChampions();
         verifyNoMoreInteractions(championGateway);
     }
 
@@ -75,6 +75,7 @@ class ListChampionsIteractorTest {
 
         assertThatThrownBy(() -> listChampionsIteractor.listChampions())
                 .isInstanceOf(DatabaseOperationException.class);
+        verify(championGateway, times(1)).listChampions();
         verifyNoMoreInteractions(championGateway);
     }
 }
