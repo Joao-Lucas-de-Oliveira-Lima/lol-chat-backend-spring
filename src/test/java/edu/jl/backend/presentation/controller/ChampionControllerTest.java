@@ -1,7 +1,7 @@
 package edu.jl.backend.presentation.controller;
 
-import edu.jl.backend.application.usercase.AskAChampionIteractor;
-import edu.jl.backend.application.usercase.ListChampionsIteractor;
+import edu.jl.backend.application.usercase.AskAChampionInteractor;
+import edu.jl.backend.application.usercase.ListChampionsInteractor;
 import edu.jl.backend.domain.entity.Champion;
 import edu.jl.backend.domain.exception.ChampionNotFoundException;
 import edu.jl.backend.domain.exception.InvalidQuestionException;
@@ -35,11 +35,11 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class ChampionControllerTest {
     @Mock
-    private ListChampionsIteractor listChampionsIteractor;
+    private ListChampionsInteractor listChampionsInteractor;
     @Mock
     private ChampionMapper championMapper;
     @Mock
-    private AskAChampionIteractor askAChampionIteractor;
+    private AskAChampionInteractor askAChampionInteractor;
     @Mock
     private BindingResult bindingResult;
     @InjectMocks
@@ -108,7 +108,7 @@ class ChampionControllerTest {
     @Test
     @DisplayName("Should return all champions successfully with status 200 OK")
     void shouldReturnAllChampionsSuccessfully() throws Exception {
-        when(listChampionsIteractor.listChampions()).thenReturn(sampleChampionList);
+        when(listChampionsInteractor.listChampions()).thenReturn(sampleChampionList);
         when(championMapper.mapToDTO(sampleChampionList.get(0)))
                 .thenReturn(sampleChampionDTOList.get(0));
         when(championMapper.mapToDTO(sampleChampionList.get(1)))
@@ -119,7 +119,7 @@ class ChampionControllerTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isEqualTo(sampleChampionDTOList);
 
-        verify(listChampionsIteractor, times(1)).listChampions();
+        verify(listChampionsInteractor, times(1)).listChampions();
         verify(championMapper, times(1)).mapToDTO(sampleChampionList.get(0));
         verify(championMapper, times(1)).mapToDTO(sampleChampionList.get(1));
 
@@ -130,19 +130,19 @@ class ChampionControllerTest {
     @DisplayName("Should throw DatabaseOperationException when an error occurs " +
             "during database access attempting to fetch champions")
     void shouldThrowDatabaseOperationExceptionWhenDatabaseAccessFailsToFetchChampions() throws Exception {
-        when(listChampionsIteractor.listChampions()).thenThrow(DatabaseOperationException.class);
+        when(listChampionsInteractor.listChampions()).thenThrow(DatabaseOperationException.class);
 
         assertThatThrownBy(() -> championController.findAll())
                 .isInstanceOf(DatabaseOperationException.class);
 
-        verify(listChampionsIteractor, times(1)).listChampions();
+        verify(listChampionsInteractor, times(1)).listChampions();
         verifyNoInteractions(championMapper);
     }
 
     @Test
     @DisplayName("Should successfully generate a response from a champion when a question is asked")
     void shouldGenerateChampionAnswerSuccessfully() throws Exception {
-        when(askAChampionIteractor.askAChampion(sampleChampionId, sampleQuestion.question()))
+        when(askAChampionInteractor.askAChampion(sampleChampionId, sampleQuestion.question()))
                 .thenReturn(sampleChampionAnswer);
         when(bindingResult.hasErrors()).thenReturn(false);
 
@@ -152,7 +152,7 @@ class ChampionControllerTest {
         assertThat(controllerResponse.getBody().answer()).isEqualTo(sampleChampionAnswer);
         assertThat(controllerResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
 
-        verify(askAChampionIteractor, times(1))
+        verify(askAChampionInteractor, times(1))
                 .askAChampion(sampleChampionId, sampleQuestion.question());
         verify(bindingResult, times(1)).hasErrors();
     }
@@ -161,14 +161,14 @@ class ChampionControllerTest {
     @DisplayName("Should throw ChampionNotFoundException when invalid champion ID is provided")
     void shouldThrowChampionNotFoundExceptionWhenInvalidChampionIdIsProvided() throws Exception {
         Long invalidId = -1L;
-        when(askAChampionIteractor.askAChampion(invalidId, sampleQuestion.question()))
+        when(askAChampionInteractor.askAChampion(invalidId, sampleQuestion.question()))
                 .thenThrow(ChampionNotFoundException.class);
         when(bindingResult.hasErrors()).thenReturn(false);
 
         assertThatThrownBy(() -> championController.ask(invalidId, sampleQuestion, bindingResult))
                 .isInstanceOf(ChampionNotFoundException.class);
 
-        verify(askAChampionIteractor, times(1))
+        verify(askAChampionInteractor, times(1))
                 .askAChampion(invalidId, sampleQuestion.question());
         verify(bindingResult, times(1)).hasErrors();
     }
@@ -183,20 +183,20 @@ class ChampionControllerTest {
         assertThatThrownBy(() -> championController.ask(sampleChampionId, invalidQuestion, bindingResult))
                 .isInstanceOf(InvalidQuestionException.class);
 
-        verifyNoInteractions(askAChampionIteractor);
+        verifyNoInteractions(askAChampionInteractor);
         verify(bindingResult, times(1)).hasErrors();
     }
 
     @Test
     @DisplayName("Should throw FeignClientCommunicationException when chat service fails")
     void shouldThrowFeignClientCommunicationExceptionWhenChatServiceFails() throws Exception {
-        when(askAChampionIteractor.askAChampion(sampleChampionId, sampleQuestion.question()))
+        when(askAChampionInteractor.askAChampion(sampleChampionId, sampleQuestion.question()))
                 .thenThrow(FeignClientCommunicationException.class);
         when(bindingResult.hasErrors()).thenReturn(false);
 
         assertThatThrownBy(() -> championController.ask(sampleChampionId, sampleQuestion, bindingResult))
                 .isInstanceOf(FeignClientCommunicationException.class);
-        verify(askAChampionIteractor, times(1))
+        verify(askAChampionInteractor, times(1))
                 .askAChampion(sampleChampionId, sampleQuestion.question());
         verify(bindingResult, times(1)).hasErrors();
     }
@@ -205,13 +205,13 @@ class ChampionControllerTest {
     @DisplayName("Should throw DatabaseOperationException when an error occurs " +
             "during database access trying to generate a champion response")
     void shouldThrowDatabaseOperationExceptionWhenDatabaseAccessFailsAttemptingToGenerateChampionResponse() throws Exception {
-        when(askAChampionIteractor.askAChampion(sampleChampionId, sampleQuestion.question()))
+        when(askAChampionInteractor.askAChampion(sampleChampionId, sampleQuestion.question()))
                 .thenThrow(DatabaseOperationException.class);
         when(bindingResult.hasErrors()).thenReturn(false);
 
         assertThatThrownBy(() -> championController.ask(sampleChampionId, sampleQuestion, bindingResult))
                 .isInstanceOf(DatabaseOperationException.class);
-        verify(askAChampionIteractor, times(1))
+        verify(askAChampionInteractor, times(1))
                 .askAChampion(sampleChampionId, sampleQuestion.question());
         verify(bindingResult, times(1)).hasErrors();
     }

@@ -1,8 +1,8 @@
 package edu.jl.backend.infrastructure.configuration;
 
 import edu.jl.backend.application.gateway.ChampionGateway;
-import edu.jl.backend.application.usercase.AskAChampionIteractor;
-import edu.jl.backend.application.usercase.ListChampionsIteractor;
+import edu.jl.backend.application.usercase.AskAChampionInteractor;
+import edu.jl.backend.application.usercase.ListChampionsInteractor;
 import edu.jl.backend.infrastructure.client.GenerativeAiChatService;
 import edu.jl.backend.infrastructure.gateway.ChampionGatewayImpl;
 import edu.jl.backend.infrastructure.repository.ChampionRepository;
@@ -28,13 +28,13 @@ public class ChampionConfiguration {
     }
 
     @Bean
-    public ListChampionsIteractor createChampionIteractor(ChampionGateway championGateway){
-        return new ListChampionsIteractor(championGateway);
+    public ListChampionsInteractor createChampionInteractor(ChampionGateway championGateway){
+        return new ListChampionsInteractor(championGateway);
     }
 
     @Bean
-    public AskAChampionIteractor createAskAChampionIteractor(
+    public AskAChampionInteractor createAskAChampionInteractor(
             ChampionGateway championGateway){
-        return new AskAChampionIteractor(championGateway);
+        return new AskAChampionInteractor(championGateway);
     }
 }

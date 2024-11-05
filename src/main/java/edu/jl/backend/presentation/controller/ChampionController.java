@@ -1,7 +1,7 @@
 package edu.jl.backend.presentation.controller;
 
-import edu.jl.backend.application.usercase.AskAChampionIteractor;
-import edu.jl.backend.application.usercase.ListChampionsIteractor;
+import edu.jl.backend.application.usercase.AskAChampionInteractor;
+import edu.jl.backend.application.usercase.ListChampionsInteractor;
 import edu.jl.backend.domain.exception.InvalidQuestionException;
 import edu.jl.backend.presentation.DTO.ChampionDTO;
 import edu.jl.backend.presentation.DTO.QuestionForAChampionDTO;
@@ -20,22 +20,22 @@ import java.util.List;
 @RequestMapping("/champions")
 public class ChampionController {
     private final ChampionMapper championMapper;
-    private final ListChampionsIteractor listChampionsIteractor;
-    private final AskAChampionIteractor askAChampionIteractor;
+    private final ListChampionsInteractor listChampionsInteractor;
+    private final AskAChampionInteractor askAChampionInteractor;
 
     public ChampionController(
             ChampionMapper championMapper,
-            ListChampionsIteractor listChampionsIteractor,
-            AskAChampionIteractor askAChampionIteractor) {
+            ListChampionsInteractor listChampionsInteractor,
+            AskAChampionInteractor askAChampionInteractor) {
         this.championMapper = championMapper;
-        this.listChampionsIteractor = listChampionsIteractor;
-        this.askAChampionIteractor = askAChampionIteractor;
+        this.listChampionsInteractor = listChampionsInteractor;
+        this.askAChampionInteractor = askAChampionInteractor;
     }
 
     @GetMapping
     public ResponseEntity<List<ChampionDTO>> findAll() throws Exception {
         List<ChampionDTO> result =
-                listChampionsIteractor
+                listChampionsInteractor
                         .listChampions()
                         .stream()
                         .map(championMapper::mapToDTO)
@@ -55,7 +55,7 @@ public class ChampionController {
             if(bindingResult.hasErrors())
                 throw new InvalidQuestionException("Question cannot be blank or missing!");
             String championResponse =
-                    askAChampionIteractor.askAChampion(championId, questionForAChampion.question());
+                    askAChampionInteractor.askAChampion(championId, questionForAChampion.question());
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(new AnswerFromTheChampionDTO(championResponse));

@@ -3,10 +3,10 @@ package edu.jl.backend.application.usercase;
 import edu.jl.backend.application.gateway.ChampionGateway;
 import edu.jl.backend.domain.entity.Champion;
 
-public class AskAChampionIteractor {
+public class AskAChampionInteractor {
     private final ChampionGateway championGateway;
 
-    public AskAChampionIteractor(ChampionGateway championGateway) {
+    public AskAChampionInteractor(ChampionGateway championGateway) {
         this.championGateway = championGateway;
     }
 

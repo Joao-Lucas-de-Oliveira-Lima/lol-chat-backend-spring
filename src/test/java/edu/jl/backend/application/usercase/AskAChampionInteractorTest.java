@@ -15,15 +15,14 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class AskAChampionIteractorTest {
+public class AskAChampionInteractorTest {
     @Mock
     private ChampionGateway championGateway;
     @InjectMocks
-    private AskAChampionIteractor askAChampionIteractor;
+    private AskAChampionInteractor askAChampionInteractor;
 
     private static Long sampleChampionId;
     private static Champion sampleChampion;
@@ -80,7 +79,7 @@ public class AskAChampionIteractorTest {
         when(championGateway.askAChampion(sampleObjective, sampleContext))
                 .thenReturn(sampleChampionAnswer);
 
-        String championAnswer = askAChampionIteractor.askAChampion(sampleChampionId, sampleQuestion);
+        String championAnswer = askAChampionInteractor.askAChampion(sampleChampionId, sampleQuestion);
 
         assertThat(championAnswer).isEqualTo(sampleChampionAnswer);
         verify(championGateway, times(1)).findChampionById(sampleChampionId);
@@ -91,13 +90,13 @@ public class AskAChampionIteractorTest {
 
     @Test
     @DisplayName("Should throw ChampionNotFoundException when invalid champion ID is provided")
-    void shouldThrowChampionNotFoundExceptionWhenInvalidChampionIdIsProvided() throws Exception{
+    void shouldThrowChampionNotFoundExceptionWhenInvalidChampionIdIsProvided() throws Exception {
         Long invalidId = -1L;
 
         when(championGateway.findChampionById(invalidId))
                 .thenThrow(ChampionNotFoundException.class);
 
-        assertThatThrownBy(() -> askAChampionIteractor.askAChampion(invalidId, sampleQuestion))
+        assertThatThrownBy(() -> askAChampionInteractor.askAChampion(invalidId, sampleQuestion))
                 .isInstanceOf(ChampionNotFoundException.class);
         verify(championGateway, times(1))
                 .findChampionById(invalidId);
@@ -106,12 +105,12 @@ public class AskAChampionIteractorTest {
 
     @Test
     @DisplayName("Should throw FeignClientCommunicationException when chat service fails")
-    void shouldThrowFeignClientCommunicationExceptionWhenChatServiceFails() throws Exception{
+    void shouldThrowFeignClientCommunicationExceptionWhenChatServiceFails() throws Exception {
         when(championGateway.findChampionById(sampleChampionId)).thenReturn(sampleChampion);
         when(championGateway.askAChampion(sampleObjective, sampleContext))
                 .thenThrow(FeignClientCommunicationException.class);
 
-        assertThatThrownBy(() -> askAChampionIteractor.askAChampion(sampleChampionId, sampleQuestion))
+        assertThatThrownBy(() -> askAChampionInteractor.askAChampion(sampleChampionId, sampleQuestion))
                 .isInstanceOf(FeignClientCommunicationException.class);
         verify(championGateway, times(1))
                 .askAChampion(sampleObjective, sampleContext);
@@ -123,11 +122,11 @@ public class AskAChampionIteractorTest {
     @Test
     @DisplayName("Should throw DatabaseOperationException when an error occurs " +
             "during database access trying to generate a champion response")
-    void shouldThrowDatabaseOperationExceptionWhenDatabaseAccessFailsAttemptingToGenerateChampionResponse() throws Exception{
+    void shouldThrowDatabaseOperationExceptionWhenDatabaseAccessFailsAttemptingToGenerateChampionResponse() throws Exception {
         when(championGateway.findChampionById(sampleChampionId))
                 .thenThrow(DatabaseOperationException.class);
 
-        assertThatThrownBy(() -> askAChampionIteractor.askAChampion(sampleChampionId, sampleQuestion))
+        assertThatThrownBy(() -> askAChampionInteractor.askAChampion(sampleChampionId, sampleQuestion))
                 .isInstanceOf(DatabaseOperationException.class);
         verify(championGateway, times(1))
                 .findChampionById(sampleChampionId);

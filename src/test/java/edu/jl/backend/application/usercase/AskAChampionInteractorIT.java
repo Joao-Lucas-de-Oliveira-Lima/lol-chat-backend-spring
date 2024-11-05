@@ -23,21 +23,21 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 /**
- * Integration tests for {@link AskAChampionIteractor}
+ * Integration tests for {@link AskAChampionInteractor}
  */
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Testcontainers
-public class AskAChampionIteractorIT {
+public class AskAChampionInteractorIT {
     @Container
     @ServiceConnection
     static PostgreSQLContainer<?> postgres =
             new PostgreSQLContainer<>("postgres:17.0");
 
     @Autowired
-    private AskAChampionIteractor askAChampionIteractor;
+    private AskAChampionInteractor askAChampionInteractor;
     @MockBean
     private GenerativeAiChatService generativeAiChatService;
 
@@ -72,7 +72,7 @@ public class AskAChampionIteractorIT {
     void shouldGenerateChampionAnswerSuccessfully() throws Exception {
         when(generativeAiChatService.generateContent(any(String.class), any(String.class)))
                 .thenReturn(sampleChampionAnswer);
-        String result = askAChampionIteractor.askAChampion(sampleChampionId, sampleQuestion);
+        String result = askAChampionInteractor.askAChampion(sampleChampionId, sampleQuestion);
         assertThat(result).isEqualTo(sampleChampionAnswer);
         verify(generativeAiChatService, times(1))
                 .generateContent(any(String.class), any(String.class));
@@ -82,7 +82,7 @@ public class AskAChampionIteractorIT {
     @DisplayName("Should throw ChampionNotFoundException when invalid champion ID is provided")
     void shouldThrowChampionNotFoundExceptionWhenInvalidChampionIdIsProvided() {
         Long invalidId = -1L;
-        assertThatThrownBy(() -> askAChampionIteractor.askAChampion(invalidId, sampleQuestion))
+        assertThatThrownBy(() -> askAChampionInteractor.askAChampion(invalidId, sampleQuestion))
                 .isInstanceOf(ChampionNotFoundException.class)
                 .hasMessage("Champion with id " + invalidId + " was not found!");
         verifyNoInteractions(generativeAiChatService);
@@ -94,7 +94,7 @@ public class AskAChampionIteractorIT {
         String exceptionMessage = "Failed to communicate with the Chat Completion service.";
         when(generativeAiChatService.generateContent(any(String.class), any(String.class)))
                 .thenThrow(new FeignClientCommunicationException(exceptionMessage));
-        assertThatThrownBy(() -> askAChampionIteractor.askAChampion(sampleChampionId, sampleQuestion))
+        assertThatThrownBy(() -> askAChampionInteractor.askAChampion(sampleChampionId, sampleQuestion))
                 .isInstanceOf(FeignClientCommunicationException.class)
                 .hasMessage(exceptionMessage);
         verify(generativeAiChatService, times(1))
