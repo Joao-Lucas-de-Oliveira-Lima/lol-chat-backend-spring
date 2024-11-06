@@ -5,6 +5,7 @@ import edu.jl.backend.application.usercase.ListChampionsInteractor;
 import edu.jl.backend.domain.entity.Champion;
 import edu.jl.backend.domain.exception.ChampionNotFoundException;
 import edu.jl.backend.domain.exception.InvalidQuestionException;
+import edu.jl.backend.infrastructure.controller.ChampionController;
 import edu.jl.backend.infrastructure.exception.DatabaseOperationException;
 import edu.jl.backend.infrastructure.exception.FeignClientCommunicationException;
 import edu.jl.backend.presentation.DTO.AnswerFromTheChampionDTO;

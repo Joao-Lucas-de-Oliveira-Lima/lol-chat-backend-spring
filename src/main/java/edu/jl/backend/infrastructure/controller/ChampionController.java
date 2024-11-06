@@ -1,4 +1,4 @@
-package edu.jl.backend.presentation.controller;
+package edu.jl.backend.infrastructure.controller;
 
 import edu.jl.backend.application.usercase.AskAChampionInteractor;
 import edu.jl.backend.application.usercase.ListChampionsInteractor;

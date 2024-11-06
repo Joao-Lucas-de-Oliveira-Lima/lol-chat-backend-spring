@@ -3,6 +3,7 @@ package edu.jl.backend.presentation.controller;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.jl.backend.infrastructure.client.GenerativeAiChatService;
+import edu.jl.backend.infrastructure.controller.ChampionController;
 import edu.jl.backend.infrastructure.exception.FeignClientCommunicationException;
 import edu.jl.backend.infrastructure.repository.ChampionRepository;
 import edu.jl.backend.presentation.DTO.AnswerFromTheChampionDTO;
