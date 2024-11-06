@@ -6,4 +6,8 @@ import java.util.List;
 
 public interface ChampionGateway {
     List<Champion> listChampions() throws Exception;
+
+    Champion findChampionById(Long id) throws Exception;
+
+    String askAChampion(String objective, String context) throws Exception;
 }

@@ -5,10 +5,10 @@ import edu.jl.backend.domain.entity.Champion;
 
 import java.util.List;
 
-public class ListChampionsIteractor {
+public class ListChampionsInteractor {
     private final ChampionGateway championGateway;
 
-    public ListChampionsIteractor(ChampionGateway championGateway) {
+    public ListChampionsInteractor(ChampionGateway championGateway) {
         this.championGateway = championGateway;
     }
 

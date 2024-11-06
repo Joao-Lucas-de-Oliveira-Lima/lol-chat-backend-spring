@@ -16,19 +16,17 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
- * Unit tests for {@link ListChampionsIteractor}
+ * Unit tests for {@link ListChampionsInteractor}
  */
 @ExtendWith(MockitoExtension.class)
-class ListChampionsIteractorTest {
-
+class ListChampionsInteractorTest {
     @Mock
     private ChampionGateway championGateway;
     @InjectMocks
-    private ListChampionsIteractor listChampionsIteractor;
+    private ListChampionsInteractor listChampionsInteractor;
 
     private static List<Champion> sampleChampionList;
 
@@ -64,8 +62,9 @@ class ListChampionsIteractorTest {
     @DisplayName("Should return a list with all champions from the database successfully")
     void shouldReturnChampionListSuccessfully() throws Exception {
         when(championGateway.listChampions()).thenReturn(sampleChampionList);
-        List<Champion> result = listChampionsIteractor.listChampions();
+        List<Champion> result = listChampionsInteractor.listChampions();
         assertThat(result).isEqualTo(sampleChampionList);
+        verify(championGateway, times(1)).listChampions();
         verifyNoMoreInteractions(championGateway);
     }
 
@@ -74,8 +73,9 @@ class ListChampionsIteractorTest {
     void shouldThrowDatabaseOperationExceptionOnFailure() throws Exception {
         when(championGateway.listChampions()).thenThrow(DatabaseOperationException.class);
 
-        assertThatThrownBy(() -> listChampionsIteractor.listChampions())
+        assertThatThrownBy(() -> listChampionsInteractor.listChampions())
                 .isInstanceOf(DatabaseOperationException.class);
+        verify(championGateway, times(1)).listChampions();
         verifyNoMoreInteractions(championGateway);
     }
 }
