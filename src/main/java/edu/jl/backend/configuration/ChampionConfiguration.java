@@ -1,4 +1,4 @@
-package edu.jl.backend.infrastructure.configuration;
+package edu.jl.backend.configuration;
 
 import edu.jl.backend.application.gateway.ChampionGateway;
 import edu.jl.backend.application.usercase.AskAChampionInteractor;
