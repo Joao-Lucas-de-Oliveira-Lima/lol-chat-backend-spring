@@ -1,4 +1,23 @@
 services:
+  api:
+    build:
+      context: .
+    container_name: api
+    restart: always
+    depends_on:
+      - db
+    environment:
+      SERVER_PORT: ${SERVER_PORT:-8080}
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL:-jdbc:postgresql://db:5432/${POSTGRES_DB:-lol}}
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME:-${POSTGRES_USER:-postgres}}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD:-1234}
+      SPRING_DATASOURCE_CLASS_NAME: ${SPRING_DATASOURCE_CLASS_NAME:-org.postgresql.Driver}
+      SPRING_JPA_OPEN_IN_VIEW: ${SPRING_JPA_OPEN_IN_VIEW:-false}
+      SPRING_JPA_HIBERNATE_DDL_AUTO: ${SPRING_JPA_HIBERNATE_DDL_AUTO:-none}
+      GROQ_CLOUD_BASE_URL: ${GROQ_CLOUD_BASE_URL:-https://api.groq.com/openai}
+      GROQ_CLOUD_API_KEY: $YOUR_API_KE
+    ports:
+      - ${SERVER_PORT:-8080}:8080
   db:
     image: postgres:17
     restart: always
@@ -16,8 +35,8 @@ services:
       POSTGRES_DB: ${POSTGRES_DB:-lol}
     ports:
       - ${DB_PORT:-3003}:5432
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - ${ADMINER_PORT:-3002}:8080
+  #adminer:
+  #  image: adminer
+  #  restart: always
+  #  ports:
+  #    - ${ADMINER_PORT:-3002}:8080
