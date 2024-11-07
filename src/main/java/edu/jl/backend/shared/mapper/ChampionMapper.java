@@ -1,12 +1,12 @@
 package edu.jl.backend.shared.mapper;
 
-import edu.jl.backend.domain.entity.Champion;
+import edu.jl.backend.domain.entity.ChampionEntity;
 import edu.jl.backend.infrastructure.model.ChampionModel;
-import edu.jl.backend.presentation.DTO.ChampionDTO;
+import edu.jl.backend.infrastructure.dto.ChampionDTO;
 
 public class ChampionMapper {
-    public Champion mapToEntity(ChampionModel championModel) {
-        return new Champion(
+    public ChampionEntity mapToEntity(ChampionModel championModel) {
+        return new ChampionEntity(
                 championModel.getId(),
                 championModel.getName(),
                 championModel.getTitle(),
@@ -15,13 +15,13 @@ public class ChampionMapper {
         );
     }
 
-    public ChampionDTO mapToDTO(Champion championDomainObj) {
+    public ChampionDTO mapToDTO(ChampionEntity championEntityDomainObj) {
         return new ChampionDTO(
-                championDomainObj.getId(),
-                championDomainObj.getName(),
-                championDomainObj.getTitle(),
-                championDomainObj.getLore(),
-                championDomainObj.getImageUrl());
+                championEntityDomainObj.getId(),
+                championEntityDomainObj.getName(),
+                championEntityDomainObj.getTitle(),
+                championEntityDomainObj.getLore(),
+                championEntityDomainObj.getImageUrl());
     }
 
     public ChampionDTO mapToDTO(ChampionModel championModel) {

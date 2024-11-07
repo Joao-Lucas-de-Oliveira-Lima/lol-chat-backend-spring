@@ -2,14 +2,14 @@ package edu.jl.backend.domain.entity;
 
 import java.util.Objects;
 
-public final class Champion {
+public final class ChampionEntity {
     private Long id;
     private String name;
     private String title;
     private String lore;
     private String imageUrl;
 
-    public Champion(Long id, String name, String title, String lore, String imageUrl) {
+    public ChampionEntity(Long id, String name, String title, String lore, String imageUrl) {
         this.id = id;
         this.name = name;
         this.title = title;
@@ -17,7 +17,7 @@ public final class Champion {
         this.imageUrl = imageUrl;
     }
 
-    public Champion() {
+    public ChampionEntity() {
     }
 
     public Long getId() {
@@ -64,8 +64,8 @@ public final class Champion {
     public boolean equals(Object object) {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
-        Champion champion = (Champion) object;
-        return Objects.equals(id, champion.id) && Objects.equals(name, champion.name) && Objects.equals(title, champion.title) && Objects.equals(lore, champion.lore) && Objects.equals(imageUrl, champion.imageUrl);
+        ChampionEntity championEntity = (ChampionEntity) object;
+        return Objects.equals(id, championEntity.id) && Objects.equals(name, championEntity.name) && Objects.equals(title, championEntity.title) && Objects.equals(lore, championEntity.lore) && Objects.equals(imageUrl, championEntity.imageUrl);
     }
 
     @Override

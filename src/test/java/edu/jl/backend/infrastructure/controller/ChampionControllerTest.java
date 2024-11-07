@@ -1,15 +1,15 @@
-package edu.jl.backend.presentation.controller;
+package edu.jl.backend.infrastructure.controller;
 
 import edu.jl.backend.application.usercase.AskAChampionInteractor;
 import edu.jl.backend.application.usercase.ListChampionsInteractor;
-import edu.jl.backend.domain.entity.Champion;
+import edu.jl.backend.domain.entity.ChampionEntity;
 import edu.jl.backend.domain.exception.ChampionNotFoundException;
 import edu.jl.backend.domain.exception.InvalidQuestionException;
 import edu.jl.backend.infrastructure.exception.DatabaseOperationException;
 import edu.jl.backend.infrastructure.exception.FeignClientCommunicationException;
-import edu.jl.backend.presentation.DTO.AnswerFromTheChampionDTO;
-import edu.jl.backend.presentation.DTO.ChampionDTO;
-import edu.jl.backend.presentation.DTO.QuestionForAChampionDTO;
+import edu.jl.backend.infrastructure.dto.AnswerFromTheChampionDTO;
+import edu.jl.backend.infrastructure.dto.ChampionDTO;
+import edu.jl.backend.infrastructure.dto.QuestionForAChampionDTO;
 import edu.jl.backend.shared.mapper.ChampionMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -48,14 +48,14 @@ class ChampionControllerTest {
     private static QuestionForAChampionDTO sampleQuestion;
     private static String sampleChampionAnswer;
     private static Long sampleChampionId;
-    private static List<Champion> sampleChampionList;
+    private static List<ChampionEntity> sampleChampionListEntity;
     private static List<ChampionDTO> sampleChampionDTOList;
 
 
     @BeforeAll
     static void setupForAllTests() {
-        sampleChampionList = new ArrayList<>();
-        sampleChampionList.add(new Champion(
+        sampleChampionListEntity = new ArrayList<>();
+        sampleChampionListEntity.add(new ChampionEntity(
                 1L,
                 "Aatrox",
                 "the Darkin Blade",
@@ -65,7 +65,7 @@ class ChampionControllerTest {
                         "But after centuries of imprisonment, Aatrox was the first to find...",
                 "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg")
         );
-        sampleChampionList.add(new Champion(
+        sampleChampionListEntity.add(new ChampionEntity(
                 2L,
                 "Ahri",
                 "the Nine-Tailed Fox",
@@ -79,18 +79,18 @@ class ChampionControllerTest {
 
         sampleChampionDTOList = new ArrayList<>();
         sampleChampionDTOList.add(new ChampionDTO(
-                sampleChampionList.get(0).getId(),
-                sampleChampionList.get(0).getName(),
-                sampleChampionList.get(0).getTitle(),
-                sampleChampionList.get(0).getLore(),
-                sampleChampionList.get(0).getImageUrl()
+                sampleChampionListEntity.get(0).getId(),
+                sampleChampionListEntity.get(0).getName(),
+                sampleChampionListEntity.get(0).getTitle(),
+                sampleChampionListEntity.get(0).getLore(),
+                sampleChampionListEntity.get(0).getImageUrl()
         ));
         sampleChampionDTOList.add(new ChampionDTO(
-                sampleChampionList.get(1).getId(),
-                sampleChampionList.get(1).getName(),
-                sampleChampionList.get(1).getTitle(),
-                sampleChampionList.get(1).getLore(),
-                sampleChampionList.get(1).getImageUrl()
+                sampleChampionListEntity.get(1).getId(),
+                sampleChampionListEntity.get(1).getName(),
+                sampleChampionListEntity.get(1).getTitle(),
+                sampleChampionListEntity.get(1).getLore(),
+                sampleChampionListEntity.get(1).getImageUrl()
         ));
 
         sampleQuestion = new QuestionForAChampionDTO("What is your purpose, Aatrox?");
@@ -108,10 +108,10 @@ class ChampionControllerTest {
     @Test
     @DisplayName("Should return all champions successfully with status 200 OK")
     void shouldReturnAllChampionsSuccessfully() throws Exception {
-        when(listChampionsInteractor.listChampions()).thenReturn(sampleChampionList);
-        when(championMapper.mapToDTO(sampleChampionList.get(0)))
+        when(listChampionsInteractor.listChampions()).thenReturn(sampleChampionListEntity);
+        when(championMapper.mapToDTO(sampleChampionListEntity.get(0)))
                 .thenReturn(sampleChampionDTOList.get(0));
-        when(championMapper.mapToDTO(sampleChampionList.get(1)))
+        when(championMapper.mapToDTO(sampleChampionListEntity.get(1)))
                 .thenReturn(sampleChampionDTOList.get(1));
 
         ResponseEntity<List<ChampionDTO>> response = championController.findAll();
@@ -120,8 +120,8 @@ class ChampionControllerTest {
         assertThat(response.getBody()).isEqualTo(sampleChampionDTOList);
 
         verify(listChampionsInteractor, times(1)).listChampions();
-        verify(championMapper, times(1)).mapToDTO(sampleChampionList.get(0));
-        verify(championMapper, times(1)).mapToDTO(sampleChampionList.get(1));
+        verify(championMapper, times(1)).mapToDTO(sampleChampionListEntity.get(0));
+        verify(championMapper, times(1)).mapToDTO(sampleChampionListEntity.get(1));
 
         verifyNoMoreInteractions(championMapper);
     }

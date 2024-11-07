@@ -6,14 +6,14 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests for {@link Champion}
+ * Unit tests for {@link ChampionEntity}
  */
 class ChampionTest {
 
     @Test
     @DisplayName("Should verify that equals and hashCode are implemented correctly")
     void testEqualsAndHashCode() {
-        EqualsVerifier.forClass(Champion.class)
+        EqualsVerifier.forClass(ChampionEntity.class)
                 .suppress(Warning.NONFINAL_FIELDS)
                 .verify();
     }

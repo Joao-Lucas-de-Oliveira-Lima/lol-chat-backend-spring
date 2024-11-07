@@ -1,15 +1,14 @@
-package edu.jl.backend.presentation.controller;
+package edu.jl.backend.infrastructure.controller;
 
 import edu.jl.backend.application.usercase.AskAChampionInteractor;
 import edu.jl.backend.application.usercase.ListChampionsInteractor;
 import edu.jl.backend.domain.exception.InvalidQuestionException;
-import edu.jl.backend.presentation.DTO.ChampionDTO;
-import edu.jl.backend.presentation.DTO.QuestionForAChampionDTO;
-import edu.jl.backend.presentation.DTO.AnswerFromTheChampionDTO;
+import edu.jl.backend.infrastructure.dto.AnswerFromTheChampionDTO;
+import edu.jl.backend.infrastructure.dto.ChampionDTO;
+import edu.jl.backend.infrastructure.dto.QuestionForAChampionDTO;
 import edu.jl.backend.shared.mapper.ChampionMapper;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;

@@ -1,14 +1,15 @@
-package edu.jl.backend.presentation.controller;
+package edu.jl.backend.infrastructure.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.jl.backend.infrastructure.client.GenerativeAiChatService;
+import edu.jl.backend.infrastructure.controller.ChampionController;
 import edu.jl.backend.infrastructure.exception.FeignClientCommunicationException;
 import edu.jl.backend.infrastructure.repository.ChampionRepository;
-import edu.jl.backend.presentation.DTO.AnswerFromTheChampionDTO;
-import edu.jl.backend.presentation.DTO.ChampionDTO;
-import edu.jl.backend.presentation.DTO.ExceptionDTO;
-import edu.jl.backend.presentation.DTO.QuestionForAChampionDTO;
+import edu.jl.backend.infrastructure.dto.AnswerFromTheChampionDTO;
+import edu.jl.backend.infrastructure.dto.ChampionDTO;
+import edu.jl.backend.infrastructure.dto.ExceptionDTO;
+import edu.jl.backend.infrastructure.dto.QuestionForAChampionDTO;
 import edu.jl.backend.shared.mapper.ChampionMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -165,7 +166,7 @@ class ChampionControllerIT {
 
         assertThat(exceptionObtainedFromTheResponse.details()).isNotBlank();
         assertThat(exceptionObtainedFromTheResponse.message())
-                .isEqualTo("Champion with id " + invalidId + " was not found!");
+                .isEqualTo("ChampionEntity with id " + invalidId + " was not found!");
         assertThat(exceptionObtainedFromTheResponse.timestamp()).isNotNull();
 
         verifyNoInteractions(generativeAiChatService);

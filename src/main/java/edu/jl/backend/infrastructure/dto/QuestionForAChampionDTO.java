@@ -1,4 +1,4 @@
-package edu.jl.backend.presentation.DTO;
+package edu.jl.backend.infrastructure.dto;
 
 import jakarta.validation.constraints.NotBlank;
 

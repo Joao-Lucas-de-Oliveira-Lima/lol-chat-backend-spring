@@ -1,7 +1,8 @@
 package edu.jl.backend.application.usercase;
 
-import edu.jl.backend.application.gateway.ChampionGateway;
-import edu.jl.backend.domain.entity.Champion;
+import edu.jl.backend.application.gateway.ChampionRepositoryGateway;
+import edu.jl.backend.application.gateway.GenerativeAiChatGateway;
+import edu.jl.backend.domain.entity.ChampionEntity;
 import edu.jl.backend.domain.exception.ChampionNotFoundException;
 import edu.jl.backend.infrastructure.exception.DatabaseOperationException;
 import edu.jl.backend.infrastructure.exception.FeignClientCommunicationException;
@@ -20,12 +21,14 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class AskAChampionInteractorTest {
     @Mock
-    private ChampionGateway championGateway;
+    private ChampionRepositoryGateway championRepositoryGateway;
+    @Mock
+    private GenerativeAiChatGateway generativeAiChatGateway;
     @InjectMocks
     private AskAChampionInteractor askAChampionInteractor;
 
     private static Long sampleChampionId;
-    private static Champion sampleChampion;
+    private static ChampionEntity sampleChampionEntity;
     private static String sampleQuestion;
     private static String sampleContext;
     private static String sampleObjective;
@@ -35,7 +38,7 @@ public class AskAChampionInteractorTest {
     static void setupForAllTests() {
         sampleChampionId = 1L;
 
-        sampleChampion = new Champion(
+        sampleChampionEntity = new ChampionEntity(
                 1L,
                 "Aatrox",
                 "the Darkin Blade",
@@ -43,7 +46,7 @@ public class AskAChampionInteractorTest {
                         "Aatrox and his brethren would eventually become an even greater " +
                         "threat to Runeterra, and were defeated only by cunning mortal sorcery. " +
                         "But after centuries of imprisonment, Aatrox was the first to find...",
-                "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg"
+                "https://ddragon.leagueoflegends.com/cdn/img/championEntity/splash/Aatrox_0.jpg"
         );
 
         sampleQuestion = "Who is Aatrox and what is his origin in Runeterra?";
@@ -53,12 +56,12 @@ public class AskAChampionInteractorTest {
                 Champion name: %s
                 Title: %s
                 Lore (history): %s
-                """.formatted(sampleQuestion, sampleChampion.getName(), sampleChampion.getTitle(),
-                sampleChampion.getLore());
+                """.formatted(sampleQuestion, sampleChampionEntity.getName(), sampleChampionEntity.getTitle(),
+                sampleChampionEntity.getLore());
 
         sampleObjective = """
                 Act as an assistant with the ability to act like champions from the game League of Legends.
-                Answer questions by embodying the personality and style of a given champion.
+                Answer questions by embodying the personality and style of a given championEntity.
                 Avoiding generating excessively long responses.
                 Here is the question and other context information:
                 """;
@@ -73,63 +76,66 @@ public class AskAChampionInteractorTest {
     }
 
     @Test
-    @DisplayName("Should successfully generate a response from a champion when a question is asked")
+    @DisplayName("Should successfully generate a response from a championEntity when a question is asked")
     void shouldGenerateChampionAnswerSuccessfully() throws Exception {
-        when(championGateway.findChampionById(sampleChampionId)).thenReturn(sampleChampion);
-        when(championGateway.askAChampion(sampleObjective, sampleContext))
+        when(championRepositoryGateway.findChampionById(sampleChampionId)).thenReturn(sampleChampionEntity);
+        when(generativeAiChatGateway.askAChampion(sampleObjective, sampleContext))
                 .thenReturn(sampleChampionAnswer);
 
         String championAnswer = askAChampionInteractor.askAChampion(sampleChampionId, sampleQuestion);
 
         assertThat(championAnswer).isEqualTo(sampleChampionAnswer);
-        verify(championGateway, times(1)).findChampionById(sampleChampionId);
-        verify(championGateway, times(1))
+        verify(championRepositoryGateway, times(1)).findChampionById(sampleChampionId);
+        verify(generativeAiChatGateway, times(1))
                 .askAChampion(sampleObjective, sampleContext);
-        verifyNoMoreInteractions(championGateway);
+        verifyNoMoreInteractions(championRepositoryGateway);
+        verifyNoMoreInteractions(generativeAiChatGateway);
     }
 
     @Test
-    @DisplayName("Should throw ChampionNotFoundException when invalid champion ID is provided")
+    @DisplayName("Should throw ChampionNotFoundException when invalid championEntity ID is provided")
     void shouldThrowChampionNotFoundExceptionWhenInvalidChampionIdIsProvided() throws Exception {
         Long invalidId = -1L;
 
-        when(championGateway.findChampionById(invalidId))
+        when(championRepositoryGateway.findChampionById(invalidId))
                 .thenThrow(ChampionNotFoundException.class);
 
         assertThatThrownBy(() -> askAChampionInteractor.askAChampion(invalidId, sampleQuestion))
                 .isInstanceOf(ChampionNotFoundException.class);
-        verify(championGateway, times(1))
+        verify(championRepositoryGateway, times(1))
                 .findChampionById(invalidId);
-        verifyNoMoreInteractions(championGateway);
+        verifyNoMoreInteractions(championRepositoryGateway);
+        verifyNoInteractions(generativeAiChatGateway);
     }
 
     @Test
     @DisplayName("Should throw FeignClientCommunicationException when chat service fails")
     void shouldThrowFeignClientCommunicationExceptionWhenChatServiceFails() throws Exception {
-        when(championGateway.findChampionById(sampleChampionId)).thenReturn(sampleChampion);
-        when(championGateway.askAChampion(sampleObjective, sampleContext))
+        when(championRepositoryGateway.findChampionById(sampleChampionId)).thenReturn(sampleChampionEntity);
+        when(generativeAiChatGateway.askAChampion(sampleObjective, sampleContext))
                 .thenThrow(FeignClientCommunicationException.class);
 
         assertThatThrownBy(() -> askAChampionInteractor.askAChampion(sampleChampionId, sampleQuestion))
                 .isInstanceOf(FeignClientCommunicationException.class);
-        verify(championGateway, times(1))
+        verify(generativeAiChatGateway, times(1))
                 .askAChampion(sampleObjective, sampleContext);
-        verify(championGateway, times(1))
+        verify(championRepositoryGateway, times(1))
                 .findChampionById(sampleChampionId);
-        verifyNoMoreInteractions(championGateway);
+        verifyNoMoreInteractions(championRepositoryGateway);
+        verifyNoMoreInteractions(generativeAiChatGateway);
     }
 
     @Test
     @DisplayName("Should throw DatabaseOperationException when an error occurs " +
-            "during database access trying to generate a champion response")
+            "during database access trying to generate a championEntity response")
     void shouldThrowDatabaseOperationExceptionWhenDatabaseAccessFailsAttemptingToGenerateChampionResponse() throws Exception {
-        when(championGateway.findChampionById(sampleChampionId))
+        when(championRepositoryGateway.findChampionById(sampleChampionId))
                 .thenThrow(DatabaseOperationException.class);
 
         assertThatThrownBy(() -> askAChampionInteractor.askAChampion(sampleChampionId, sampleQuestion))
                 .isInstanceOf(DatabaseOperationException.class);
-        verify(championGateway, times(1))
+        verify(championRepositoryGateway, times(1))
                 .findChampionById(sampleChampionId);
-        verifyNoMoreInteractions(championGateway);
+        verifyNoMoreInteractions(championRepositoryGateway);
     }
 }

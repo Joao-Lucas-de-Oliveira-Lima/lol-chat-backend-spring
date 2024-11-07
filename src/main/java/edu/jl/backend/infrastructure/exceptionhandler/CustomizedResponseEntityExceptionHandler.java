@@ -1,10 +1,10 @@
-package edu.jl.backend.presentation.exceptionhandler;
+package edu.jl.backend.infrastructure.exceptionhandler;
 
 import edu.jl.backend.domain.exception.ChampionNotFoundException;
 import edu.jl.backend.domain.exception.InvalidQuestionException;
 import edu.jl.backend.infrastructure.exception.DatabaseOperationException;
 import edu.jl.backend.infrastructure.exception.FeignClientCommunicationException;
-import edu.jl.backend.presentation.DTO.ExceptionDTO;
+import edu.jl.backend.infrastructure.dto.ExceptionDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import java.io.InvalidClassException;
 import java.util.Date;
 
 @ControllerAdvice

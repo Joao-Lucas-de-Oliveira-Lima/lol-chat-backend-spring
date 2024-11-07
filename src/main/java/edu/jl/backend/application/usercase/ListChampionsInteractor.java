@@ -1,18 +1,18 @@
 package edu.jl.backend.application.usercase;
 
-import edu.jl.backend.application.gateway.ChampionGateway;
-import edu.jl.backend.domain.entity.Champion;
+import edu.jl.backend.application.gateway.ChampionRepositoryGateway;
+import edu.jl.backend.domain.entity.ChampionEntity;
 
 import java.util.List;
 
 public class ListChampionsInteractor {
-    private final ChampionGateway championGateway;
+    private final ChampionRepositoryGateway championRepositoryGateway;
 
-    public ListChampionsInteractor(ChampionGateway championGateway) {
-        this.championGateway = championGateway;
+    public ListChampionsInteractor(ChampionRepositoryGateway championRepositoryGateway) {
+        this.championRepositoryGateway = championRepositoryGateway;
     }
 
-    public List<Champion> listChampions() throws Exception {
-        return this.championGateway.listChampions();
+    public List<ChampionEntity> listChampions() throws Exception {
+        return this.championRepositoryGateway.listChampions();
     }
 }

@@ -1,1 +1,1 @@
-https://ddragon.leagueoflegends.com/cdn/13.18.1/data/en_US/champion.json
+https://ddragon.leagueoflegends.com/cdn/13.18.1/data/en_US/championEntity.json

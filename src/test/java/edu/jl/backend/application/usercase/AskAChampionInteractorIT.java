@@ -84,7 +84,7 @@ public class AskAChampionInteractorIT {
         Long invalidId = -1L;
         assertThatThrownBy(() -> askAChampionInteractor.askAChampion(invalidId, sampleQuestion))
                 .isInstanceOf(ChampionNotFoundException.class)
-                .hasMessage("Champion with id " + invalidId + " was not found!");
+                .hasMessage("ChampionEntity with id " + invalidId + " was not found!");
         verifyNoInteractions(generativeAiChatService);
     }
 

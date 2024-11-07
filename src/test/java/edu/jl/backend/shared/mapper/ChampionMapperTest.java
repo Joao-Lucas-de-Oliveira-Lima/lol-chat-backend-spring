@@ -1,8 +1,8 @@
 package edu.jl.backend.shared.mapper;
 
-import edu.jl.backend.domain.entity.Champion;
+import edu.jl.backend.domain.entity.ChampionEntity;
 import edu.jl.backend.infrastructure.model.ChampionModel;
-import edu.jl.backend.presentation.DTO.ChampionDTO;
+import edu.jl.backend.infrastructure.dto.ChampionDTO;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ChampionMapperTest {
 
     private static ChampionModel championModel;
-    private static Champion championEntity;
+    private static ChampionEntity championEntity;
     private static ChampionDTO championDTO;
 
     private final ChampionMapper championMapper = new ChampionMapper();
@@ -24,7 +24,7 @@ class ChampionMapperTest {
     @BeforeAll
     static void setupForAllTests() {
 
-        championEntity = new Champion(
+        championEntity = new ChampionEntity(
                 1L,
                 "Aatrox",
                 "the Darkin Blade",
@@ -51,14 +51,14 @@ class ChampionMapperTest {
     }
 
     @Test
-    @DisplayName("Should map ChampionModel to Champion entity successfully")
+    @DisplayName("Should map ChampionModel to ChampionEntity entity successfully")
     void shouldMapChampionModelToEntity() {
-        Champion mappedChampionEntity  = championMapper.mapToEntity(championModel);
-        assertThat(mappedChampionEntity ).isEqualTo(championEntity);
+        ChampionEntity mappedChampionEntityEntity = championMapper.mapToEntity(championModel);
+        assertThat(mappedChampionEntityEntity).isEqualTo(championEntity);
     }
 
     @Test
-    @DisplayName("Should map Champion entity to ChampionDTO successfully")
+    @DisplayName("Should map ChampionEntity entity to ChampionDTO successfully")
     void shouldMapChampionEntityToResponseDTO() {
         ChampionDTO mappedChampionDTO =
                 championMapper.mapToDTO(championEntity);

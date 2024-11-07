@@ -1,9 +1,8 @@
 package edu.jl.backend.infrastructure.gateway;
 
-import edu.jl.backend.application.gateway.ChampionGateway;
-import edu.jl.backend.domain.entity.Champion;
+import edu.jl.backend.application.gateway.ChampionRepositoryGateway;
+import edu.jl.backend.domain.entity.ChampionEntity;
 import edu.jl.backend.domain.exception.ChampionNotFoundException;
-import edu.jl.backend.infrastructure.client.GenerativeAiChatService;
 import edu.jl.backend.infrastructure.exception.DatabaseOperationException;
 import edu.jl.backend.infrastructure.model.ChampionModel;
 import edu.jl.backend.infrastructure.repository.ChampionRepository;
@@ -14,20 +13,18 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 
-public class ChampionGatewayImpl implements ChampionGateway {
-    private static final Logger logger = LoggerFactory.getLogger(ChampionGatewayImpl.class.getName());
+public class ChampionRepositoryGatewayImpl implements ChampionRepositoryGateway {
+    private static final Logger logger = LoggerFactory.getLogger(ChampionRepositoryGatewayImpl.class.getName());
     private final ChampionRepository championRepository;
     private final ChampionMapper championMapper;
-    private final GenerativeAiChatService generativeAiChatService;
 
-    public ChampionGatewayImpl(ChampionRepository championRepository, ChampionMapper championMapper, GenerativeAiChatService generativeAiChatService) {
+    public ChampionRepositoryGatewayImpl(ChampionRepository championRepository, ChampionMapper championMapper) {
         this.championRepository = championRepository;
         this.championMapper = championMapper;
-        this.generativeAiChatService = generativeAiChatService;
     }
 
     @Override
-    public List<Champion> listChampions() throws DatabaseOperationException {
+    public List<ChampionEntity> listChampions() throws DatabaseOperationException {
         try {
             List<ChampionModel> champions = championRepository.findAll();
             return champions.stream().map(championMapper::mapToEntity).toList();
@@ -38,10 +35,10 @@ public class ChampionGatewayImpl implements ChampionGateway {
     }
 
     @Override
-    public Champion findChampionById(Long id) throws DatabaseOperationException, ChampionNotFoundException {
+    public ChampionEntity findChampionById(Long id) throws DatabaseOperationException, ChampionNotFoundException {
         try {
             ChampionModel champion = championRepository.findById(id)
-                    .orElseThrow(() -> new ChampionNotFoundException("Champion with id " + id + " was not found!"));
+                    .orElseThrow(() -> new ChampionNotFoundException("ChampionEntity with id " + id + " was not found!"));
             return championMapper.mapToEntity(champion);
         } catch (ChampionNotFoundException championNotFoundException) {
             logger.error("Error occurred: { " + championNotFoundException.getMessage() + " }", championNotFoundException);
@@ -50,10 +47,5 @@ public class ChampionGatewayImpl implements ChampionGateway {
             logger.error("Error occurred: { " + exception.getMessage() + " }", exception);
             throw new DatabaseOperationException("Unexpected error while retrieving champion.");
         }
-    }
-
-    @Override
-    public String askAChampion(String objective, String context) throws Exception {
-        return this.generativeAiChatService.generateContent(objective, context);
     }
 }

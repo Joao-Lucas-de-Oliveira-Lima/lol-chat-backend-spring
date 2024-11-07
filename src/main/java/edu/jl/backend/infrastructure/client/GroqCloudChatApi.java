@@ -29,8 +29,8 @@ public interface GroqCloudChatApi extends GenerativeAiChatService {
             );
             ChatApiRequest request = new ChatApiRequest(model, messages);
             return performRequestForChatCompletion(request).choices.getFirst().message.content;
-        }catch (Exception exception){
-            logger.error("Error occurred: { "+exception.getMessage()+" }", exception);
+        } catch (Exception exception) {
+            logger.error("Error occurred: { " + exception.getMessage() + " }", exception);
             throw new FeignClientCommunicationException("Failed to communicate with the Chat Completion service.");
         }
     }
