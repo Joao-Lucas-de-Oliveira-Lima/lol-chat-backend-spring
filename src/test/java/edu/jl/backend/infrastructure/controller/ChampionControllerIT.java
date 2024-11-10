@@ -3,13 +3,12 @@ package edu.jl.backend.infrastructure.controller;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.jl.backend.infrastructure.client.GenerativeAiChatService;
-import edu.jl.backend.infrastructure.controller.ChampionController;
-import edu.jl.backend.infrastructure.exception.FeignClientCommunicationException;
-import edu.jl.backend.infrastructure.repository.ChampionRepository;
 import edu.jl.backend.infrastructure.dto.AnswerFromTheChampionDTO;
 import edu.jl.backend.infrastructure.dto.ChampionDTO;
 import edu.jl.backend.infrastructure.dto.ExceptionDTO;
 import edu.jl.backend.infrastructure.dto.QuestionForAChampionDTO;
+import edu.jl.backend.infrastructure.exception.FeignClientCommunicationException;
+import edu.jl.backend.infrastructure.repository.ChampionRepository;
 import edu.jl.backend.shared.mapper.ChampionMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -73,11 +72,11 @@ class ChampionControllerIT {
     static void setupForAllTests() {
         sampleQuestion = new QuestionForAChampionDTO("What is your purpose, Aatrox?");
         sampleChampionAnswer = """
-                I am Aatrox, the Darkin Blade, once a noble defender of Shurima, 
-                now a harbinger of destruction. My purpose? To reclaim my once-glorious form, 
-                to ravage the lands and bring this world to its knees. I was imprisoned, 
-                betrayed by those I fought for, but I have returned. Mortals will suffer, 
-                and the very essence of Runeterra will tremble under my blade, until I am whole 
+                I am Aatrox, the Darkin Blade, once a noble defender of Shurima,
+                now a harbinger of destruction. My purpose? To reclaim my once-glorious form,
+                to ravage the lands and bring this world to its knees. I was imprisoned,
+                betrayed by those I fought for, but I have returned. Mortals will suffer,
+                and the very essence of Runeterra will tremble under my blade, until I am whole
                 again.
                 """;
         sampleChampionId = 1L;
@@ -285,7 +284,7 @@ class ChampionControllerIT {
                 new String(jsonResponseContentInBytes, StandardCharsets.UTF_8);
 
         ExceptionDTO exceptionObtainedFromTheResponse =
-                objectMapper.readValue(jsonResponseContentAsString, new TypeReference<ExceptionDTO>() {
+                objectMapper.readValue(jsonResponseContentAsString, new TypeReference<>() {
                 });
 
         assertThat(exceptionObtainedFromTheResponse.details()).isNotBlank();

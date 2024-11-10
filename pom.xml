@@ -10,7 +10,7 @@
     </parent>
     <groupId>edu.jl</groupId>
     <artifactId>back-end</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <name>back-end</name>
     <description>back-end</description>
     <url/>

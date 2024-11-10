@@ -15,7 +15,7 @@ services:
       SPRING_JPA_OPEN_IN_VIEW: ${SPRING_JPA_OPEN_IN_VIEW:-false}
       SPRING_JPA_HIBERNATE_DDL_AUTO: ${SPRING_JPA_HIBERNATE_DDL_AUTO:-none}
       GROQ_CLOUD_BASE_URL: ${GROQ_CLOUD_BASE_URL:-https://api.groq.com/openai}
-      GROQ_CLOUD_API_KEY: $YOUR_API_KE
+      GROQ_CLOUD_API_KEY: $YOUR_API_KEY
     ports:
       - ${SERVER_PORT:-8080}:8080
   db:
