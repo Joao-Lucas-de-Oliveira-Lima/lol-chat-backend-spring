@@ -17,6 +17,13 @@ public final class ChampionEntity {
         this.imageUrl = imageUrl;
     }
 
+    public ChampionEntity(String name, String title, String lore, String imageUrl) {
+        this.name = name;
+        this.title = title;
+        this.lore = lore;
+        this.imageUrl = imageUrl;
+    }
+
     public ChampionEntity() {
     }
 
@@ -64,8 +71,8 @@ public final class ChampionEntity {
     public boolean equals(Object object) {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
-        ChampionEntity championEntity = (ChampionEntity) object;
-        return Objects.equals(id, championEntity.id) && Objects.equals(name, championEntity.name) && Objects.equals(title, championEntity.title) && Objects.equals(lore, championEntity.lore) && Objects.equals(imageUrl, championEntity.imageUrl);
+        ChampionEntity that = (ChampionEntity) object;
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(title, that.title) && Objects.equals(lore, that.lore) && Objects.equals(imageUrl, that.imageUrl);
     }
 
     @Override

@@ -51,14 +51,14 @@ class ChampionMapperTest {
     }
 
     @Test
-    @DisplayName("Should map ChampionModel to ChampionEntity entity successfully")
+    @DisplayName("Should map ChampionModel to ChampionEntity successfully")
     void shouldMapChampionModelToEntity() {
-        ChampionEntity mappedChampionEntityEntity = championMapper.mapToEntity(championModel);
-        assertThat(mappedChampionEntityEntity).isEqualTo(championEntity);
+        ChampionEntity mappedChampionEntity = championMapper.mapToEntity(championModel);
+        assertThat(mappedChampionEntity).isEqualTo(championEntity);
     }
 
     @Test
-    @DisplayName("Should map ChampionEntity entity to ChampionDTO successfully")
+    @DisplayName("Should map ChampionEntity to ChampionDTO successfully")
     void shouldMapChampionEntityToResponseDTO() {
         ChampionDTO mappedChampionDTO =
                 championMapper.mapToDTO(championEntity);

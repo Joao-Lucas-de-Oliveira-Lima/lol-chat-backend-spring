@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests for {@link ChampionEntity}
  */
-class ChampionTest {
+class ChampionEntityTest {
 
     @Test
     @DisplayName("Should verify that equals and hashCode are implemented correctly")

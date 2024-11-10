@@ -1,6 +1,5 @@
 package edu.jl.backend.infrastructure.dto;
 
-import edu.jl.backend.infrastructure.dto.ChampionDTO;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

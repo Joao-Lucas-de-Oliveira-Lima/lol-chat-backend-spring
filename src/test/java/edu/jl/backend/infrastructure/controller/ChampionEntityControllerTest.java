@@ -34,7 +34,7 @@ import static org.mockito.Mockito.*;
  * Unit tests for {@link ChampionController}
  */
 @ExtendWith(MockitoExtension.class)
-class ChampionControllerTest {
+class ChampionEntityControllerTest {
     @Mock
     private ListChampionsInteractor listChampionsInteractor;
     @Mock
@@ -49,14 +49,14 @@ class ChampionControllerTest {
     private static QuestionForAChampionDTO sampleQuestion;
     private static String sampleChampionAnswer;
     private static Long sampleChampionId;
-    private static List<ChampionEntity> sampleChampionListEntity;
+    private static List<ChampionEntity> sampleChampionEntityList;
     private static List<ChampionDTO> sampleChampionDTOList;
 
 
     @BeforeAll
     static void setupForAllTests() {
-        sampleChampionListEntity = new ArrayList<>();
-        sampleChampionListEntity.add(new ChampionEntity(
+        sampleChampionEntityList = new ArrayList<>();
+        sampleChampionEntityList.add(new ChampionEntity(
                 1L,
                 "Aatrox",
                 "the Darkin Blade",
@@ -66,7 +66,7 @@ class ChampionControllerTest {
                         "But after centuries of imprisonment, Aatrox was the first to find...",
                 "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg")
         );
-        sampleChampionListEntity.add(new ChampionEntity(
+        sampleChampionEntityList.add(new ChampionEntity(
                 2L,
                 "Ahri",
                 "the Nine-Tailed Fox",
@@ -80,18 +80,18 @@ class ChampionControllerTest {
 
         sampleChampionDTOList = new ArrayList<>();
         sampleChampionDTOList.add(new ChampionDTO(
-                sampleChampionListEntity.get(0).getId(),
-                sampleChampionListEntity.get(0).getName(),
-                sampleChampionListEntity.get(0).getTitle(),
-                sampleChampionListEntity.get(0).getLore(),
-                sampleChampionListEntity.get(0).getImageUrl()
+                sampleChampionEntityList.get(0).getId(),
+                sampleChampionEntityList.get(0).getName(),
+                sampleChampionEntityList.get(0).getTitle(),
+                sampleChampionEntityList.get(0).getLore(),
+                sampleChampionEntityList.get(0).getImageUrl()
         ));
         sampleChampionDTOList.add(new ChampionDTO(
-                sampleChampionListEntity.get(1).getId(),
-                sampleChampionListEntity.get(1).getName(),
-                sampleChampionListEntity.get(1).getTitle(),
-                sampleChampionListEntity.get(1).getLore(),
-                sampleChampionListEntity.get(1).getImageUrl()
+                sampleChampionEntityList.get(1).getId(),
+                sampleChampionEntityList.get(1).getName(),
+                sampleChampionEntityList.get(1).getTitle(),
+                sampleChampionEntityList.get(1).getLore(),
+                sampleChampionEntityList.get(1).getImageUrl()
         ));
 
         sampleQuestion = new QuestionForAChampionDTO("What is your purpose, Aatrox?");
@@ -109,10 +109,10 @@ class ChampionControllerTest {
     @Test
     @DisplayName("Should return all champions successfully with status 200 OK")
     void shouldReturnAllChampionsSuccessfully() throws Exception {
-        when(listChampionsInteractor.listChampions()).thenReturn(sampleChampionListEntity);
-        when(championMapper.mapToDTO(sampleChampionListEntity.get(0)))
+        when(listChampionsInteractor.listChampions()).thenReturn(sampleChampionEntityList);
+        when(championMapper.mapToDTO(sampleChampionEntityList.get(0)))
                 .thenReturn(sampleChampionDTOList.get(0));
-        when(championMapper.mapToDTO(sampleChampionListEntity.get(1)))
+        when(championMapper.mapToDTO(sampleChampionEntityList.get(1)))
                 .thenReturn(sampleChampionDTOList.get(1));
 
         ResponseEntity<List<ChampionDTO>> response = championController.findAll();
@@ -121,8 +121,8 @@ class ChampionControllerTest {
         assertThat(response.getBody()).isEqualTo(sampleChampionDTOList);
 
         verify(listChampionsInteractor, times(1)).listChampions();
-        verify(championMapper, times(1)).mapToDTO(sampleChampionListEntity.get(0));
-        verify(championMapper, times(1)).mapToDTO(sampleChampionListEntity.get(1));
+        verify(championMapper, times(1)).mapToDTO(sampleChampionEntityList.get(0));
+        verify(championMapper, times(1)).mapToDTO(sampleChampionEntityList.get(1));
 
         verifyNoMoreInteractions(championMapper);
     }

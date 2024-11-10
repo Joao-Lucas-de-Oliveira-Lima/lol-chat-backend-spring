@@ -1,3 +1,4 @@
+
 package edu.jl.backend.infrastructure.dto;
 public record ChampionDTO(
         Long id,

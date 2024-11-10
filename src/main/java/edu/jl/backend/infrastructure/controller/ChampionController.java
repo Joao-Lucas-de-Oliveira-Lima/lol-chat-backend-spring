@@ -49,15 +49,14 @@ public class ChampionController {
     public ResponseEntity<AnswerFromTheChampionDTO> ask(
             @PathVariable(name = "id") Long championId,
             @RequestBody @Valid QuestionForAChampionDTO questionForAChampion,
-            BindingResult bindingResult) throws Exception
-    {
-            if(bindingResult.hasErrors())
-                throw new InvalidQuestionException("Question cannot be blank or missing!");
-            String championResponse =
-                    askAChampionInteractor.askAChampion(championId, questionForAChampion.question());
-            return ResponseEntity
-                    .status(HttpStatus.OK)
-                    .body(new AnswerFromTheChampionDTO(championResponse));
+            BindingResult bindingResult) throws Exception {
+        if (bindingResult.hasErrors())
+            throw new InvalidQuestionException("Question cannot be blank or missing!");
+        String championResponse =
+                askAChampionInteractor.askAChampion(championId, questionForAChampion.question());
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(new AnswerFromTheChampionDTO(championResponse));
     }
 
 

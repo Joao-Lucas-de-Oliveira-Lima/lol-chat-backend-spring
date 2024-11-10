@@ -46,7 +46,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @Testcontainers
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class ChampionControllerIT {
+class ChampionEntityControllerIT {
     @Autowired
     private ChampionRepository championRepository;
     @Autowired

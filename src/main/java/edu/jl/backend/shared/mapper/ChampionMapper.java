@@ -15,13 +15,13 @@ public class ChampionMapper {
         );
     }
 
-    public ChampionDTO mapToDTO(ChampionEntity championEntityDomainObj) {
+    public ChampionDTO mapToDTO(ChampionEntity championEntity) {
         return new ChampionDTO(
-                championEntityDomainObj.getId(),
-                championEntityDomainObj.getName(),
-                championEntityDomainObj.getTitle(),
-                championEntityDomainObj.getLore(),
-                championEntityDomainObj.getImageUrl());
+                championEntity.getId(),
+                championEntity.getName(),
+                championEntity.getTitle(),
+                championEntity.getLore(),
+                championEntity.getImageUrl());
     }
 
     public ChampionDTO mapToDTO(ChampionModel championModel) {

@@ -14,14 +14,14 @@ public class AskAChampionInteractor {
     }
 
     public String askAChampion(Long championId, String question) throws Exception {
-        ChampionEntity championEntityObtained = championRepositoryGateway.findChampionById(championId);
+        ChampionEntity championObtained = championRepositoryGateway.findChampionById(championId);
         String context = """
                 Question: %s
                 Champion name: %s
                 Title: %s
                 Lore (history): %s
-                """.formatted(question, championEntityObtained.getName(), championEntityObtained.getTitle(),
-                championEntityObtained.getLore());
+                """.formatted(question, championObtained.getName(), championObtained.getTitle(),
+                championObtained.getLore());
         String objective = """
                 Act as an assistant with the ability to act like champions from the game League of Legends.
                 Answer questions by embodying the personality and style of a given championEntity.

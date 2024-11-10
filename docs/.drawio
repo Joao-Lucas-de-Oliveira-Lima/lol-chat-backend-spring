@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="qG7mWZerdyrtpDxax1y_" name="Page-1">
-        <mxGraphModel dx="420" dy="458" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3300" pageHeight="4681" math="0" shadow="0">
+        <mxGraphModel dx="706" dy="519" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3300" pageHeight="4681" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -111,7 +111,7 @@
                 <mxCell id="1duBXZsOQnHNKtrOYLzU-66" value="&lt;font face=&quot;Lucida Console&quot;&gt;UI&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;glass=0;sketch=0;fontFamily=Helvetica;fontSize=11;fontColor=#F2F2F2;" parent="1" vertex="1">
                     <mxGeometry x="683.13" y="515" width="60" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="1duBXZsOQnHNKtrOYLzU-70" value="&lt;font face=&quot;Lucida Console&quot;&gt;&lt;span style=&quot;font-size: 25px;&quot;&gt;Architectural Diagram&lt;/span&gt;&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;glass=0;sketch=0;fontFamily=Comic Sans MS;fontSize=11;fontColor=#000000;spacing=20;" parent="1" vertex="1">
+                <mxCell id="1duBXZsOQnHNKtrOYLzU-70" value="&lt;font face=&quot;Lucida Console&quot; style=&quot;font-size: 25px;&quot;&gt;&lt;font style=&quot;font-size: 25px;&quot;&gt;Diagrama Arquitetur&lt;/font&gt;al&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;glass=0;sketch=0;fontFamily=Comic Sans MS;fontSize=11;fontColor=#000000;spacing=20;" parent="1" vertex="1">
                     <mxGeometry x="810" y="332.5" width="150" height="90" as="geometry"/>
                 </mxCell>
             </root>
