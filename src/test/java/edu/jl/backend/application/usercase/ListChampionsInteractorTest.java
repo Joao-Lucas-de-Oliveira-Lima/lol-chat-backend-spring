@@ -1,7 +1,7 @@
 package edu.jl.backend.application.usercase;
 
-import edu.jl.backend.application.gateway.ChampionGateway;
-import edu.jl.backend.domain.entity.Champion;
+import edu.jl.backend.application.gateway.ChampionRepositoryGateway;
+import edu.jl.backend.domain.entity.ChampionEntity;
 import edu.jl.backend.infrastructure.exception.DatabaseOperationException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -24,17 +24,17 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class ListChampionsInteractorTest {
     @Mock
-    private ChampionGateway championGateway;
+    private ChampionRepositoryGateway ChampionRepositoryGateway;
     @InjectMocks
     private ListChampionsInteractor listChampionsInteractor;
 
-    private static List<Champion> sampleChampionList;
+    private static List<ChampionEntity> sampleChampionListEntity;
 
 
     @BeforeAll
     static void setupForAllTests() {
-        sampleChampionList = new ArrayList<>();
-        sampleChampionList.add(new Champion(
+        sampleChampionListEntity = new ArrayList<>();
+        sampleChampionListEntity.add(new ChampionEntity(
                 1L,
                 "Aatrox",
                 "the Darkin Blade",
@@ -44,7 +44,7 @@ class ListChampionsInteractorTest {
                         "But after centuries of imprisonment, Aatrox was the first to find...",
                 "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg")
         );
-        sampleChampionList.add(new Champion(
+        sampleChampionListEntity.add(new ChampionEntity(
                 2L,
                 "Ahri",
                 "the Nine-Tailed Fox",
@@ -61,21 +61,21 @@ class ListChampionsInteractorTest {
     @Test
     @DisplayName("Should return a list with all champions from the database successfully")
     void shouldReturnChampionListSuccessfully() throws Exception {
-        when(championGateway.listChampions()).thenReturn(sampleChampionList);
-        List<Champion> result = listChampionsInteractor.listChampions();
-        assertThat(result).isEqualTo(sampleChampionList);
-        verify(championGateway, times(1)).listChampions();
-        verifyNoMoreInteractions(championGateway);
+        when(ChampionRepositoryGateway.listChampions()).thenReturn(sampleChampionListEntity);
+        List<ChampionEntity> result = listChampionsInteractor.listChampions();
+        assertThat(result).isEqualTo(sampleChampionListEntity);
+        verify(ChampionRepositoryGateway, times(1)).listChampions();
+        verifyNoMoreInteractions(ChampionRepositoryGateway);
     }
 
     @Test
     @DisplayName("Should throw DatabaseOperationException when champion list retrieval fails")
     void shouldThrowDatabaseOperationExceptionOnFailure() throws Exception {
-        when(championGateway.listChampions()).thenThrow(DatabaseOperationException.class);
+        when(ChampionRepositoryGateway.listChampions()).thenThrow(DatabaseOperationException.class);
 
         assertThatThrownBy(() -> listChampionsInteractor.listChampions())
                 .isInstanceOf(DatabaseOperationException.class);
-        verify(championGateway, times(1)).listChampions();
-        verifyNoMoreInteractions(championGateway);
+        verify(ChampionRepositoryGateway, times(1)).listChampions();
+        verifyNoMoreInteractions(ChampionRepositoryGateway);
     }
 }

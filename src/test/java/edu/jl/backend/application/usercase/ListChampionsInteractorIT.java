@@ -1,6 +1,6 @@
 package edu.jl.backend.application.usercase;
 
-import edu.jl.backend.domain.entity.Champion;
+import edu.jl.backend.domain.entity.ChampionEntity;
 import edu.jl.backend.infrastructure.repository.ChampionRepository;
 import edu.jl.backend.shared.mapper.ChampionMapper;
 import org.junit.jupiter.api.DisplayName;
@@ -56,10 +56,10 @@ class ListChampionsInteractorIT {
     @DisplayName("Should successfully return a list of champions matching the " +
             "expected data from the repository")
     void shouldReturnListOfChampionsMatchingRepositoryData() throws Exception {
-        List<Champion> expectedChampions =
+        List<ChampionEntity> expectedChampionEntities =
                 championRepository.findAll().stream().map(championMapper::mapToEntity).toList();
-        List<Champion> result = listChampionsInteractor.listChampions();
-        assertThat(result).isEqualTo(expectedChampions);
+        List<ChampionEntity> result = listChampionsInteractor.listChampions();
+        assertThat(result).isEqualTo(expectedChampionEntities);
     }
 /*
     @Test

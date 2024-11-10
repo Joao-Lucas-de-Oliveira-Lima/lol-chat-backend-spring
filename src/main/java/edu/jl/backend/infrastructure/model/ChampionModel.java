@@ -26,13 +26,6 @@ public final class ChampionModel {
         this.imageUrl = imageUrl;
     }
 
-    public ChampionModel(String name, String title, String lore, String imageUrl) {
-        this.name = name;
-        this.title = title;
-        this.lore = lore;
-        this.imageUrl = imageUrl;
-    }
-
     public Long getId() {
         return id;
     }

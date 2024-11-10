@@ -1,17 +1,20 @@
 package edu.jl.backend.application.usercase;
 
-import edu.jl.backend.application.gateway.ChampionGateway;
-import edu.jl.backend.domain.entity.Champion;
+import edu.jl.backend.application.gateway.ChampionRepositoryGateway;
+import edu.jl.backend.application.gateway.GenerativeAiChatGateway;
+import edu.jl.backend.domain.entity.ChampionEntity;
 
 public class AskAChampionInteractor {
-    private final ChampionGateway championGateway;
+    private final ChampionRepositoryGateway championRepositoryGateway;
+    private final GenerativeAiChatGateway generativeAiChatGateway;
 
-    public AskAChampionInteractor(ChampionGateway championGateway) {
-        this.championGateway = championGateway;
+    public AskAChampionInteractor(ChampionRepositoryGateway championRepositoryGateway, GenerativeAiChatGateway generativeAiChatGateway) {
+        this.championRepositoryGateway = championRepositoryGateway;
+        this.generativeAiChatGateway = generativeAiChatGateway;
     }
 
     public String askAChampion(Long championId, String question) throws Exception {
-        Champion championObtained = championGateway.findChampionById(championId);
+        ChampionEntity championObtained = championRepositoryGateway.findChampionById(championId);
         String context = """
                 Question: %s
                 Champion name: %s
@@ -21,10 +24,10 @@ public class AskAChampionInteractor {
                 championObtained.getLore());
         String objective = """
                 Act as an assistant with the ability to act like champions from the game League of Legends.
-                Answer questions by embodying the personality and style of a given champion.
+                Answer questions by embodying the personality and style of a given championEntity.
                 Avoiding generating excessively long responses.
                 Here is the question and other context information:
                 """;
-        return championGateway.askAChampion(objective, context);
+        return generativeAiChatGateway.askAChampion(objective, context);
     }
 }

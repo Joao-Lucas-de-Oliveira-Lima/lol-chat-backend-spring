@@ -49,11 +49,11 @@ public class AskAChampionInteractorIT {
     @BeforeAll
     static void setupForAllTests() {
         sampleChampionAnswer = """
-                I am Aatrox, the Darkin Blade, once a noble defender of Shurima, 
-                now a harbinger of destruction. My purpose? To reclaim my once-glorious form, 
-                to ravage the lands and bring this world to its knees. I was imprisoned, 
-                betrayed by those I fought for, but I have returned. Mortals will suffer, 
-                and the very essence of Runeterra will tremble under my blade, until I am whole 
+                I am Aatrox, the Darkin Blade, once a noble defender of Shurima,
+                now a harbinger of destruction. My purpose? To reclaim my once-glorious form,
+                to ravage the lands and bring this world to its knees. I was imprisoned,
+                betrayed by those I fought for, but I have returned. Mortals will suffer,
+                and the very essence of Runeterra will tremble under my blade, until I am whole
                 again.
                 """;
         sampleQuestion = "Who is Aatrox and what is his origin in Runeterra?";
@@ -84,7 +84,7 @@ public class AskAChampionInteractorIT {
         Long invalidId = -1L;
         assertThatThrownBy(() -> askAChampionInteractor.askAChampion(invalidId, sampleQuestion))
                 .isInstanceOf(ChampionNotFoundException.class)
-                .hasMessage("Champion with id " + invalidId + " was not found!");
+                .hasMessage("ChampionEntity with id " + invalidId + " was not found!");
         verifyNoInteractions(generativeAiChatService);
     }
 
