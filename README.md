@@ -1,7 +1,8 @@
 ## About the API
 
-REST API developed with Java Spring. This API allows users to interact in conversations 
-with League of Legends champions, using an advanced language model (LLM).
+REST API developed with Java Spring. This API enables users to engage in interactive 
+conversations with League of Legends champions, using a large language model (LLM) 
+integrated through an external service.
 
 # Installation Guide
 
