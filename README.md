@@ -1,3 +1,8 @@
+## About the API
+
+REST API developed with Java Spring. This API allows users to interact in conversations 
+with League of Legends champions, using an advanced language model (LLM).
+
 # Installation Guide
 
 ## 1. Running the Application with Docker Compose
@@ -96,7 +101,7 @@ measured by IntelliJ IDEA's [Code Coverage](https://www.jetbrains.com/help/idea/
 - [Apache Maven 3.9.8 or latest](https://maven.apache.org/install.html)
 - [Docker-desktop](https://www.docker.com/products/docker-desktop/) (required for integration tests)
 
-Run the following commands in the terminal:
+Run the following commands in the terminal, from the application root directory:
 
 - For unit tests:
 ```bash
