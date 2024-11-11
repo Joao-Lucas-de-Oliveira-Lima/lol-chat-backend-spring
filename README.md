@@ -1,7 +1,7 @@
-## About the API
+# About the API
 
-REST API developed with Java Spring. This API enables users to engage in interactive 
-conversations with League of Legends champions, using a large language model (LLM) 
+REST API developed with Java Spring. This API enables users to engage in interactive
+conversations with League of Legends champions, using a large language model (LLM)
 integrated through an external service.
 
 # Installation Guide
@@ -115,7 +115,17 @@ mvn verify -Pfailsafe
 >Note: Ensure Docker is running, as the application uses TestContainers to create a PostgreSQL database
 > in Docker for each integration test class.
 
-# OpenAPI Documentation
-To view the full documentation of the API endpoints and schemas, go to `/swagger-ui/index.html`.
-To access the API documentation in JSON format for API clients like Postman, Insomnia, and others,
-use the endpoint `/v3/api-docs`.
+# Documentation
+
+## API Endpoints Preview
+```text
+GET /champions - Retrieve a list of champions.
+
+POST /champions/ask/{id} - Ask a question to a specific champion by ID and retrieve the champion's response.
+```
+
+## OpenAPI Documentation
+- To view the full API documentation, including endpoints and data schemas, open the Swagger UI at:
+  `/swagger-ui/index.html`
+
+- For API documentation in JSON format suitable for tools like Postman, Insomnia, and other API clients, go to: `/v3/api-docs`.
