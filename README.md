@@ -84,23 +84,6 @@ It includes five main directories:
 - `shared`  Contains utility classes accessible across multiple layers.
 
 # Tests
-## Coverage
-Current coverage includes:
-- Classes: 81%
-- Methods: 71%
-- Lines: 78%
-
-Additionally, controllers and interactors (use cases) have 100% coverage across all metrics as
-measured by IntelliJ IDEA's [Code Coverage](https://www.jetbrains.com/help/idea/code-coverage.html#run_with_coverage) plugin.
-
-## Running Tests
-### Prerequisites
-- [Java 21](https://www.oracle.com/br/java/technologies/downloads/#java21)
-- [Apache Maven 3.9.8 or latest](https://maven.apache.org/install.html)
-- [Docker-desktop](https://www.docker.com/products/docker-desktop/) (required for integration tests)
-
-Run the following commands in the terminal, from the application root directory:
-
 - For unit tests:
 ```bash
 mvn test
