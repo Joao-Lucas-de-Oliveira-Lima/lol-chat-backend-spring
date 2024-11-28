@@ -24,7 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @Testcontainers
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ExtendWith(SpringExtension.class)
 class ListChampionsInteractorIT {
     @Container

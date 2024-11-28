@@ -26,7 +26,7 @@ import static org.mockito.Mockito.*;
  * Integration tests for {@link AskAChampionInteractor}
  */
 
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ExtendWith(SpringExtension.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Testcontainers

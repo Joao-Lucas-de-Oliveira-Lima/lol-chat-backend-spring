@@ -1,8 +1,7 @@
 services:
   api:
-    build:
-      context: .
-    container_name: api
+    image: joaolucasol/personal:talk-with-lol-champions-api-v1.2.0
+    container_name: lol-api
     restart: always
     depends_on:
       - db
@@ -16,6 +15,8 @@ services:
       SPRING_JPA_HIBERNATE_DDL_AUTO: ${SPRING_JPA_HIBERNATE_DDL_AUTO:-none}
       GROQ_CLOUD_BASE_URL: ${GROQ_CLOUD_BASE_URL:-https://api.groq.com/openai}
       GROQ_CLOUD_API_KEY: $YOUR_API_KEY
+      command: >
+        sh -c "./wait-for-it.sh db:5432 -- java -jar app.jar"
     ports:
       - ${SERVER_PORT:-8080}:8080
   db:

@@ -23,9 +23,6 @@ Run the following command to start the containers:
 ```bash
 docker-compose up -d
 ```
->Note: A .jar file of the current API version is already available in the src directory,
-> so there's no need to manually configure a Docker image for the Spring API. Ensure that
-> the ports mapped to the host in docker-compose.yaml are not in use by other processes.
 
 ## 2. Running the Application with Maven
 
