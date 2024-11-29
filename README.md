@@ -84,6 +84,7 @@ It includes five main directories:
 - `shared`  Contains utility classes accessible across multiple layers.
 
 # Tests
+Run the following commands in the terminal, from the application root directory:
 - For unit tests:
 ```bash
 mvn test
