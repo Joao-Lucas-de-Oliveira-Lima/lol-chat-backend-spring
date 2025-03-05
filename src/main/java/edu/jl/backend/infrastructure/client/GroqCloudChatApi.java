@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
-@FeignClient(name = "groqCloudChatApi", url = "${groq-cloud.base-url}", configuration = GroqCloudChatApi.Configuration.class)
+@FeignClient(name = "groqCloudChatApi", url = "${chat-service.url}", configuration = GroqCloudChatApi.Configuration.class)
 public interface GroqCloudChatApi extends GenerativeAiChatService {
     Logger logger = LoggerFactory.getLogger(GroqCloudChatApi.class.getName());
 
@@ -50,7 +50,7 @@ public interface GroqCloudChatApi extends GenerativeAiChatService {
     class Configuration {
         @Bean
         public RequestInterceptor apiKeyRequestInterceptor(
-                @Value("${groq-cloud.api-key}") String apiKey) {
+                @Value("${chat-service.key}") String apiKey) {
             return RequestTemplate -> RequestTemplate.header(HttpHeaders.AUTHORIZATION, "Bearer " + apiKey);
         }
     }

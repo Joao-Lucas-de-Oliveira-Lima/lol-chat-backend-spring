@@ -1,43 +1,29 @@
 services:
   api:
-    image: joaolucasol/personal:talk-with-lol-champions-api-v1.2.0
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: lol-api
-    restart: always
+    restart: on-failure
     depends_on:
       - db
     environment:
-      SERVER_PORT: ${SERVER_PORT:-8080}
-      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL:-jdbc:postgresql://db:5432/${POSTGRES_DB:-lol}}
-      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME:-${POSTGRES_USER:-postgres}}
-      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD:-1234}
-      SPRING_DATASOURCE_CLASS_NAME: ${SPRING_DATASOURCE_CLASS_NAME:-org.postgresql.Driver}
-      SPRING_JPA_OPEN_IN_VIEW: ${SPRING_JPA_OPEN_IN_VIEW:-false}
-      SPRING_JPA_HIBERNATE_DDL_AUTO: ${SPRING_JPA_HIBERNATE_DDL_AUTO:-none}
-      GROQ_CLOUD_BASE_URL: ${GROQ_CLOUD_BASE_URL:-https://api.groq.com/openai}
-      GROQ_CLOUD_API_KEY: $YOUR_API_KEY
-      command: >
-        sh -c "./wait-for-it.sh db:5432 -- java -jar app.jar"
+      CHAT_SERVICE_URL: ${CHAT_SERVICE_URL:-https://example.com}
+      CHAT_SERVICE_KEY: ${CHAT_SERVICE_KEY:-key}
     ports:
-      - ${SERVER_PORT:-8080}:8080
+      - 8080:8080
   db:
     image: postgres:17-alpine
-    restart: always
-    # set shared memory limit when using docker-compose
+    restart: on-failure
     shm_size: 128mb
-    # or set shared memory limit when deploy via swarm stack
-    #volumes:
-    #  - type: tmpfs
-    #    target: /dev/shm
-    #    tmpfs:
-    #      size: 134217728 # 128*2^20 bytes = 128Mb
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-1234}
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_DB: ${POSTGRES_DB:-lol}
     ports:
       - ${DB_PORT:-3003}:5432
-  #adminer:
-  #  image: adminer
-  #  restart: always
-  #  ports:
-  #    - ${ADMINER_PORT:-3002}:8080
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
