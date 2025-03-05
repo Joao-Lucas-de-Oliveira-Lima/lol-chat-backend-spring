@@ -1,4 +1,5 @@
 # About the API
+![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white) ![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white) ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white) ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white) ![Swagger](https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white)
 
 REST API developed with Java Spring. This API enables users to engage in interactive
 conversations with League of Legends champions, using a large language model (LLM)
@@ -29,7 +30,6 @@ docker-compose up -d
 ### Prerequisites
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 - [Java 21](https://www.oracle.com/br/java/technologies/downloads/#java21)
-- [Apache Maven 3.9.8 or later](https://maven.apache.org/install.html)
 
 ### Steps
 
@@ -66,8 +66,8 @@ groq-cloud.api-key=your_api_key
 #### 3. Run the Application
 In the project root directory, run:
 ```bash
-mvn clean install -DskipTests
-mvn spring-boot:run
+./mvnw clean install -DskipTests
+./mvnw spring-boot:run
 ```
 ## Architecture
 The project follows the Clean Architecture principles, as illustrated below.
@@ -84,30 +84,14 @@ It includes five main directories:
 - `shared`  Contains utility classes accessible across multiple layers.
 
 # Tests
-## Coverage
-Current coverage includes:
-- Classes: 81%
-- Methods: 71%
-- Lines: 78%
-
-Additionally, controllers and interactors (use cases) have 100% coverage across all metrics as
-measured by IntelliJ IDEA's [Code Coverage](https://www.jetbrains.com/help/idea/code-coverage.html#run_with_coverage) plugin.
-
-## Running Tests
-### Prerequisites
-- [Java 21](https://www.oracle.com/br/java/technologies/downloads/#java21)
-- [Apache Maven 3.9.8 or latest](https://maven.apache.org/install.html)
-- [Docker-desktop](https://www.docker.com/products/docker-desktop/) (required for integration tests)
-
 Run the following commands in the terminal, from the application root directory:
-
 - For unit tests:
 ```bash
-mvn test
+./mvnw test
 ```
 - For integration tests:
 ```bash
-mvn verify -Pfailsafe
+./mvnw verify -Pfailsafe
 ```
 >Note: Ensure Docker is running, as the application uses TestContainers to create a PostgreSQL database
 > in Docker for each integration test class.
