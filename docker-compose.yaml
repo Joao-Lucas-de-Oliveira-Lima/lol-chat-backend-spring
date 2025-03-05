@@ -20,7 +20,7 @@ services:
     ports:
       - ${SERVER_PORT:-8080}:8080
   db:
-    image: postgres:17
+    image: postgres:17-alpine
     restart: always
     # set shared memory limit when using docker-compose
     shm_size: 128mb
