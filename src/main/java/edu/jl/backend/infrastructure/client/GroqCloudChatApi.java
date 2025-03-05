@@ -16,7 +16,7 @@ import java.util.List;
 public interface GroqCloudChatApi extends GenerativeAiChatService {
     Logger logger = LoggerFactory.getLogger(GroqCloudChatApi.class.getName());
 
-    @PostMapping("/v1/chat/completions")
+    @PostMapping()
     ChatApiResponse performRequestForChatCompletion(ChatApiRequest request);
 
     @Override
